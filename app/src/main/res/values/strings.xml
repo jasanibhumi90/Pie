@@ -1,0 +1,240 @@
+<resources>
+    <string name="app_name">Pie</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
+    <string name="save">Save</string>
+    <string name="email">Email</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="signup_with_facebook">SIGN UP WITH FACEBOOK</string>
+    <string name="or">- OR -</string>
+    <string name="dont_have_an_account">
+        <![CDATA[Don\'t have an Account?<font color="#7A3DC6"><b> Sign Up</b></font>]]> </string>
+    <string name="already_have_an_account">
+        <![CDATA[Already have an Account?<font color="#7A3DC6"><b> Sign In</b></font>]]></string>
+    <string name="how_it_works">How it Works?</string>
+    <string name="skip">SKIP</string>
+    <string name="one">1.</string>
+    <string name="enter_your_ex_contact_info">Enter your EX\'s \n Contact Info</string>
+    <string name="two">2.</string>
+    <string name="ask_your_questions">Ask Your Questions (3 Max)</string>
+    <string name="three">3.</string>
+    <string name="a_relationship_expert_will_contact_you">A Relationship Expert will Contact You</string>
+    <string name="ex_contact_info">Ex\'s Contact Info</string>
+    <string name="phone">Phone</string>
+    <string name="name">Name</string>
+    <string name="fullname">Full Name</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="snapchat">Snapchat</string>
+    <string name="gift_that_would_be">What\'s your ex\'s favorite store?</string>
+    <string name="save_and_exit">SAVE &amp; NEXT</string>
+    <string name="heading_ask_your_question">Ask Your Question?</string>
+    <string name="your_question">Your Question</string>
+    <string name="question1">Question 1</string>
+    <string name="add">ADD</string>
+    <string name="note">Note: you can add max 3 question</string>
+    <string name="send_to_relationship_expert">SEND TO RELATIONSHIP EXPERT</string>
+    <string name="than_you">Thank You</string>
+    <string name="your_relationship_expert_will_contact_you_shortly">Your Relationship Expert will contact you
+        shortly.
+    </string>
+    <string name="sponsored_by">Sponsored by</string>
+    <string name="shauntay_dunbar">SHAUNTAY DUNBAR</string>
+    <string name="relationship_expert">Relationship Expert</string>
+    <string name="go_to_homepage">GO TO HOMEPAGE</string>
+    <string name="home">HOME</string>
+    <string name="answered">Answered</string>
+    <string name="pending">Pending</string>
+    <string name="add_more_questions">ADD MORE QUESTIONS</string>
+    <string name="profile">Profile</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="win_back_trust">Win back\ntrust</string>
+    <string name="feeling_frustrated">Feeling frustrated about your ex not responding?</string>
+    <string name="find_out">Find out why from our relationship experts</string>
+    <string name="indivual_and_couples_coaching">Individual and Couples Coaching.</string>
+    <string name="anytime_and_anywhere">Anytime and Anywhere</string>
+    <string name="public_records">PUBLIC RECORDS SEARCH SERVICE</string>
+    <string name="social_media">Social Media, Photos, Police Records, Background checks,Civil judgments,Contact
+        Information and much more!
+    </string>
+    <string name="get_an_answer">GET AN ANSWER</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_logout">Logout</string>
+    <string name="msg_no_internet">No Internet Connection</string>
+    <string name="error_valid_email">Please Enter Valid Email Address</string>
+    <string name="error_empty_first_name">Please Enter First Name</string>
+    <string name="error_empty_last_name">Please Enter Last Name</string>
+    <string name="error_empty_phone_no">Please Enter Phone No</string>
+    <string name="error_empty_username">Please Enter Username</string>
+    <string name="error_empty_email">Please Enter Email Address</string>
+    <string name="error_empty_password">Please Enter Password</string>
+    <string name="error_terms">Please select terms and conditions</string>
+    <string name="error_empty_facebook">Please Enter Facebook Detail</string>
+    <string name="error_empty_insta">Please Enter Instagram Detail</string>
+    <string name="error_empty_snapchat">Please Enter Snapchat Detail</string>
+    <string name="error_empty_gift_intrested_in">Please Enter Gift Intrested In</string>
+    <string name="error_old_password">Please Enter Old Password</string>
+    <string name="error_new_password">Please Enter New Password</string>
+    <string name="error_confirm_password">Please Enter Confirm Password</string>
+    <string name="error_valid_password">Password Must Match!</string>
+    <string name="error_empty_create_password">Please Enter Create Password</string>
+    <string name="error_empty_re_enter_password">Please Enter Re-Enter Password</string>
+    <string name="error_empty_code">Please Enter Verification Code</string>
+    <string name="error_valid_code">Please Enter Valid Verification Code</string>
+    <string name="error_reason">Please Select reason</string>
+    <string name="error_desc">Please Enter Description</string>
+
+
+    <string name="takephoto">Take Photo</string>
+    <string name="choosefromgallery">Choose from Library</string>
+    <string name="cancel">Cancel</string>
+    <string name="facebook_app_id">616602925524746</string>
+    <string name="create_password">Create Password</string>
+    <string name="reenter_password">Re-Enter Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="terms">By Entering contact information and questions to Closurely, you give us permission to share
+        that content with our relationship experts.You also consent to receive communication from us.Feel free to
+        unsubscribe at any time
+    </string>
+
+
+    <string name="content_desc">Content Desc</string>
+    <string name="pies">Pies</string>
+    <string name="chats">Chats</string>
+    <string name="guest">Guest</string>
+    <string name="host">Host</string>
+    <string name="more">More</string>
+    <!--dashboard-->
+    <string name="hello_there">Hello there,</string>
+    <string name="welcome_to_pie_me">Welcome to Pie Me</string>
+    <string name="welcome_desc">Pie Me gives you the ability to connect with people, host meals and events around the
+        world to explore and embark on adventures together.
+    </string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="like">Likes</string>
+    <string name="pie">Pie</string>
+
+
+    <!--login-->
+    <string name="welcome_back">Welcome back</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="password">Password</string>
+    <string name="forgotyourpassword">Forgot your password?</string>
+    <string name="forgotpassword">Forgot Password?</string>
+    <string name="please_enter_your_email_address">Please enter your email address. You will receive a link to create a
+        new password via email.
+    </string>
+    <string name="your_email_address">Your email address</string>
+    <string name="send">SEND</string>
+
+
+    <!--register-->
+    <string name="create_an_account">Create an account</string>
+    <string name="connect_share">Connect, Share &amp; host events and meals</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="bio">Bio</string>
+    <string name="dob">Date Of Birth</string>
+    <string name="select_dob">Select your date Of Birth</string>
+    <string name="email_address">Email Address</string>
+    <string name="mobile_no">Mobile Number</string>
+    <string name="by_clicking_terms">By clicking sign up you agree to the following terms &amp; conditions.</string>
+
+
+    <!--verification-->
+    <string name="verify_your_number">Verify Your Number</string>
+    <string name="verification_has_been_sent">
+        <![CDATA[Verification has been sent to your mobile number<b>+ %1s</b></font>]]> </string>
+    <string name="verification_code">Verification Code</string>
+    <string name="btn_continue">Continue</string>
+    <string name="reset_otp">Resend Otp</string>
+
+
+    <!--register profile-->
+    <string name="you_are_all_set">You\'re all set</string>
+    <string name="take_a_minute">Take a minute to upload a profile photo &amp; enter few details about you.</string>
+    <string name="set_your_username">Set your Username</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="you_are">You\'re</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="btn_submit">Submit</string>
+
+    <!--profile hobby-->
+    <string name="choose_things">Choose things you like</string>
+    <string name="choose_a_interest">Choose a interest below to fill your feed with your favourite things.</string>
+    <string name="btn_done">Done</string>
+
+
+    <!--people you may no-->
+    <string name="people_you_may_know">People you may know</string>
+    <string name="follow">Follow</string>
+    <string name="piemate">Piemate</string>
+
+    <string name="toast_cannot_retrieve_selected_video">Cannot retrieve selected video</string>
+    <!--home-->
+    <string name="create_a_pie_and_Be_loved">Create a pie and be loved!</string>
+    <string name="permission_read_storage_rationale">Storage read permission is needed to pick files</string>
+    <string name="permission_title_rationale">Permission needed</string>
+    <!--profile-->
+    <string name="editprofile">Edit Profile</string>
+    <string name="piemates">Piemates</string>
+    <string name="meals">Meals / Events</string>
+
+    <!--create pie-->
+    <string name="create_or_pie_something">write or pie something....</string>
+    <string name="pie_now">Pie Now</string>
+
+    <string name="video_saved_at">Video saves at : $%1s</string>
+    <string name="pick_a_video">Select or record a a video below to try it out:</string>
+    <string name="short_seconds">sec</string>
+
+    <!--report post-->
+    <string name="report_post">Report a Post</string>
+    <string name="why_are_you_reporting_this_post">Why are you reporting this post?</string>
+    <string name="description">Description</string>
+    <string name="write_description_here">Write Description here...</string>
+
+
+    <!--menu-->
+    <string name="menu_editpost">Edit Post</string>
+    <string name="menu_deletepost">Delete Post</string>
+    <string name="menu_reportpost">Report Post</string>
+
+    <string name="loginfirst_error">Please login first!</string>
+    <item type="id" name="glide_tag" />
+    <item name="TYPE" type="id" />
+
+    <!--comment dialog-->
+    <string name="comments">Comments</string>
+    <string name="replycomment">Replies</string>
+    <string name="nocomments">No Comments yet</string>
+    <string name="nocommentsSub">be the first to comment on this post</string>
+    <string name="writecomments">Write comment…</string>
+    <string name="you_not_eligible">You are not eligible for comments.</string>
+    <string name="reply">Reply</string>
+    <string name="replying_to">Replying to %1$s</string>
+
+    <!--share post-->
+    <string name="warning_share">Are you sure you want to share this post?</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!--warning-->
+    <string name="warning_logout">Are you sure want to logout?</string>
+    <string name="warning_yes">Yes</string>
+    <string name="warning_no">No</string>
+    <string name="warning_cancel">Cancel</string>
+    <string name="warning_delete_post">Are you sure want to delete post?</string>
+    <string name="warning_relogin">You already login with this mobile number in another device. If you want to login in this device then may be you lost unsynced coin that from already login device. You can logout from old device and login here or you can login here forcefully. Do you want login in this device?</string>
+    <string name="close">close</string>
+
+</resources>

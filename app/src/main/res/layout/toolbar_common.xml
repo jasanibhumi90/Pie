@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite">
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/ivBack"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/content_desc"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_navbar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/styleTextSemiBold"
+            android:textSize="@dimen/_16sdp"
+            android:id="@+id/tvTitle"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/ivBack"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack"
+            app:layout_constraintStart_toEndOf="@+id/ivBack"
+            tools:text="@string/like"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+           app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/colorGrey"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

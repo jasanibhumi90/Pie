@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:f="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/comment_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_marginTop="@dimen/_55sdp"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="60dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+    <LinearLayout
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_top_round_white"
+        android:orientation="vertical"
+        android:padding="@dimen/_15sdp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="@string/report_post"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:theme="@style/styleTextMedium" />
+
+            <ImageView
+                android:id="@+id/ivReportDilogClose"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_vertical|end"
+
+                android:contentDescription="@string/content_desc"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/arrow_right"
+                android:rotation="90"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/why_are_you_reporting_this_post"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_14sdp"
+            android:theme="@style/styleTextMedium" />
+
+
+        <org.apmem.tools.layouts.FlowLayout
+            android:id="@+id/flowLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            f:layout_newLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:text="@string/description"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            android:theme="@style/styleTextMedium" />
+
+        <EditText
+            android:id="@+id/edDescription"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="top"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="@string/write_description_here"
+
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:singleLine="false"
+            android:text=""
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorGrey500"
+            android:textSize="@dimen/_12sdp"
+            android:theme="@style/styleTextMedium" />
+
+        <TextView
+            android:id="@+id/tvReportPostSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+
+            android:background="@drawable/bg_btn_green_radius_twenty"
+            android:gravity="center"
+            android:paddingBottom="@dimen/_12sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:text="@string/send"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13sdp"
+            android:theme="@style/styleTextMedium" />
+
+    </LinearLayout>
+    </ScrollView>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/reportAvi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="BallClipRotateIndicator" />
+</RelativeLayout>

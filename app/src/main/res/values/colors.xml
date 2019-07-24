@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#097BDE</color>
+    <color name="colorPrimaryDark">#097BDE</color>
+    <color name="colorAccent">#097BDE</color>
+    <!--Main Gradient colors-->
+    <color name="colorMainGradient1">#6C52F0</color>
+    <color name="colorMainCenterGradient1">#4A73F0</color>
+    <color name="colorMainGradient2">#444DE9</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorInvitesBg">#D4D1E5</color>
+    <color name="colorRed">#EA4E4F</color>
+    <color name="colorDarkGreen">#20bb4f</color>
+    <color name="colorTextDark">#1C2041</color>
+    <color name="colorGrey">#E5E6E8</color>
+    <color name="colorTextViolet">#7A3DC6</color>
+    <color name="colorGrey500">#AFB6BC</color>
+    <color name="colorBlue">#097BDE</color>
+    <color name="colorWhiteTrans">#1Affffff</color>
+    <color name="colorBlackTrans">#80000000</color>
+    <color name="colorDarkGrey">#3A3B40</color>
+    <color name="colorYellow">#F9FDEF</color>
+    <color name="colorOrange">#FEA540</color>
+    <color name="colorGreen">#3FFE60</color>
+    <color name="edbg">#8007335b</color>
+    <color name="hint_color">#80ffffff</color>
+    <color name="tab_text">#A9BCCA</color>
+    <color name="colorBg">#EEF3F7</color>
+    <color name="colorDisabled">#DAE3EA</color>
+    <color name="colorGrey700">#616161</color>
+    <!--Feed-->
+    <color name="colorFeedBG">#f6f3fb</color>
+    <color name="colorFeedName">#262a2f</color>
+    <color name="colorFeedPlace">#8d939b</color>
+    <color name="colorFeedContent">#535a63</color>
+    <color name="colorFeedCount">#7c8693</color>
+    <color name="colorFeedLink">#616a75</color>
+    <color name="colorFeedLine">#ecf1f6</color>
+
+    <!--comments-->
+    <color name="colorArrow">#7F848A</color>
+    <color name="colorNoComments">#B3BCCF</color>
+    <color name="colorMessageSayHi">#96a4b5</color>
+    <color name="colorNotEligible">#e76f6f</color>
+    <color name="colorShimmer">#DFE8F3</color>
+    <color name="colorPlaceholder">#a1afc0</color>
+    <!--share post-->
+    <color name="colorOnBoardingTitle">#23212c</color>
+</resources>

@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+  <!--  <style name="styleTextBold">
+        <item name="android:fontFamily">@font/bo</item>
+    </style>-->
+    <style name="DialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowEnterAnimation">@anim/bottom_to_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+        <item name="colorControlNormal">@color/colorGrey500</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="styleTextSemiBold">
+        <item name="android:fontFamily">@font/semibold</item>
+    </style>
+
+    <style name="styleTextMedium">
+        <item name="android:fontFamily">@font/medium</item>
+    </style>
+
+    <style name="styleTextRegular">
+        <item name="android:fontFamily">@font/reguler</item>
+    </style>
+    <style name="tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+</resources>

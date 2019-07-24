@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:f="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/comment_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_marginTop="@dimen/_55sdp"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="60dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_top_round_white"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_15sdp"
+                android:text="@string/comments"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:theme="@style/styleTextMedium" />
+
+            <ImageView
+                android:id="@+id/ivDilogClose"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:contentDescription="@string/content_desc"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/close_post"
+                android:tint="@color/colorArrow" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.4"
+            android:background="@color/colorNoComments" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvComments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:listitem="@layout/raw_comment_list" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/aviPagination"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone"
+            app:indicatorColor="@color/colorAccent"
+            app:indicatorName="BallRotateIndicator" />
+
+        <LinearLayout
+            android:id="@+id/llNodataFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_desc"
+                android:src="@drawable/empty_nocomment" />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:text="@string/nocomments"
+            android:textColor="@color/colorNoComments"
+            android:textSize="@dimen/_14sdp"
+            android:theme="@style/styleTextSemiBold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/nocommentsSub"
+                android:textColor="@color/colorNoComments"
+                android:textSize="@dimen/_12sdp"
+                android:theme="@style/styleTextMedium" />
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:scrollbars="none">
+
+            <org.apmem.tools.layouts.FlowLayout
+                android:id="@+id/llSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+            </org.apmem.tools.layouts.FlowLayout>
+        </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.4"
+            android:background="@color/colorNoComments" />
+
+        <LinearLayout
+            android:id="@+id/llReplyLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_darkblue"
+            android:padding="@dimen/_5sdp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvReplyLbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                tools:text="Replying to Mehul Moradiya" />
+
+            <ImageView
+                android:id="@+id/ivReplyClose"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:contentDescription="@string/app_name"
+                android:tint="@color/colorWhite"
+                app:srcCompat="@drawable/close_post" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/_8sdp"
+            android:visibility="visible"
+            tools:visibility="visible">
+
+            <EditText
+                android:id="@+id/edReplyComment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/writecomments"
+                android:inputType="text"
+                android:singleLine="false"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorGrey"
+                android:textSize="@dimen/_13sdp"
+                android:theme="@style/styleTextMedium" />
+
+            <TextView
+                android:id="@+id/tvSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/bg_btn_round_darkblue"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="@dimen/_20sdp"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingRight="@dimen/_20sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:text="@string/send"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_13sdp"
+                android:theme="@style/styleTextMedium" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/dialogAvi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="BallClipRotateIndicator" />
+</RelativeLayout>

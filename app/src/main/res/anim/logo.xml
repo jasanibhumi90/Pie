@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <scale
+        android:duration="1000"
+        android:fromXScale="1dp"
+        android:fromYScale="1dp"
+        android:pivotX="10%"
+        android:pivotY="10%"
+        android:toXScale="100%"
+        android:toYScale="100%" />
+
+    <rotate
+        android:duration="1000"
+        android:fromDegrees="-360"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toDegrees="360" />
+
+</set>

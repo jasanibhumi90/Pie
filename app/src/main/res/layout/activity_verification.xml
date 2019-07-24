@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/splash_bg"
+              android:padding="@dimen/_20sdp"
+              android:orientation="vertical">
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/back_white"
+               android:padding="@dimen/_10sdp"
+               android:id="@+id/ivBack"
+               android:layout_marginTop="@dimen/_10sdp"
+               android:contentDescription="@string/content_desc"
+    />
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:layout_weight="1">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+        >
+
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/verify_your_number"
+                      android:textSize="@dimen/_20sdp"
+                      android:layout_marginTop="@dimen/_30sdp"
+                      android:textColor="@color/colorWhite"
+                      style="@style/styleTextSemiBold"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/verification_has_been_sent"
+                      android:id="@+id/tvVerificationDesc"
+                      android:textSize="@dimen/_12sdp"
+                      android:textColor="@color/colorWhite"
+                      style="@style/styleTextRegular"/>
+
+            <EditText android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/verification_code"
+                      android:textSize="@dimen/_12sdp"
+                      android:layout_marginTop="@dimen/_50sdp"
+                      android:background="@drawable/bg_editext"
+                      android:padding="@dimen/_13sdp"
+                      android:id="@+id/etCode"
+                      android:textColor="@color/colorWhite"
+                      android:textColorHint="@color/hint_color"
+                      android:inputType="number"
+                      android:singleLine="true"
+
+                      style="@style/styleTextMedium"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/btn_continue"
+                      android:id="@+id/tvContinue"
+                      android:textSize="@dimen/_12sdp"
+                      android:gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/_30sdp"
+                      android:background="@drawable/bg_btn_white_thirty"
+                      android:padding="@dimen/_13sdp"
+                      android:textColor="@color/colorBlue"
+                      style="@style/styleTextSemiBold"/>
+
+        </LinearLayout>
+    </ScrollView>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/reset_otp"
+              android:layout_gravity="center_horizontal"
+              android:id="@+id/tvForgotPass"
+              android:gravity="center_horizontal"
+              android:layout_marginTop="@dimen/_10sdp"
+              android:textSize="@dimen/_10sdp"
+              android:textColor="@color/colorWhite"
+              android:padding="@dimen/_10sdp"
+              style="@style/styleTextMedium"/>
+
+</LinearLayout>

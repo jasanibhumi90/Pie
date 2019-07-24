@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+              android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="@color/colorPrimary"
+                  android:padding="@dimen/_15sdp">
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="@dimen/_5sdp"
+                   android:id="@+id/ivBack"
+                   android:src="@drawable/back_white"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="@dimen/_15sdp"
+                  android:background="@color/colorPrimary">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+            <com.makeramen.roundedimageview.RoundedImageView android:layout_width="@dimen/_80sdp"
+                                                             android:layout_height="@dimen/_80sdp"
+                                                             android:id="@+id/ivProfile"
+                                                             android:src="@drawable/profile_pic"
+                                                             android:scaleType="centerCrop"
+                                                             app:riv_corner_radius="@dimen/_50sdp"
+                                                             app:riv_border_width="@dimen/_1sdp"
+                                                             app:riv_border_color="@color/colorWhite"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center_vertical"
+                          android:gravity="center_vertical"
+                          android:orientation="vertical"
+                          android:layout_marginStart="@dimen/_10sdp">
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Harna Makwana"
+                          android:id="@+id/tvName"
+                          android:textColor="@color/colorWhite"
+                          style="@style/styleTextMedium"
+                          android:textSize="@dimen/_14sdp"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="harna@mak123"
+                          android:id="@+id/tvUsername"
+                          android:textColor="@color/colorWhite"
+                          style="@style/styleTextRegular"
+                          android:textSize="@dimen/_12sdp"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/editprofile"
+                          android:layout_marginTop="@dimen/_5sdp"
+                          android:background="@drawable/bg_btn_white_thirty"
+                          android:id="@+id/tvEditProfile"
+                          android:paddingStart="@dimen/_20sdp"
+                          android:paddingEnd="@dimen/_20sdp"
+                          android:paddingTop="@dimen/_7sdp"
+                          android:paddingBottom="@dimen/_7sdp"
+                          android:textColor="@color/colorPrimary"
+                          style="@style/styleTextMedium"
+                          android:textSize="@dimen/_12sdp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text=""
+                  android:layout_marginTop="@dimen/_10sdp"
+                  android:id="@+id/tvBio"
+                  android:textColor="@color/colorWhite"
+                  style="@style/styleTextRegular"
+                  android:textSize="@dimen/_12sdp"/>
+
+    </LinearLayout>
+    <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tablayout"
+            app:tabTextAppearance="@style/tab"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorBlue"
+            app:tabTextColor="@color/tab_text"
+            android:background="@color/colorWhite"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </com.google.android.material.tabs.TabLayout>
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:background="@color/tab_text"/>
+    <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/pager">
+
+    </androidx.viewpager.widget.ViewPager>
+</LinearLayout>

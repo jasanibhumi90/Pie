@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/splash_bg">
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:layout_weight="1">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_30sdp">
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/pie_p"
+                       android:contentDescription="@string/content_desc"
+                       android:layout_marginTop="@dimen/_30sdp"
+                       android:layout_gravity="center_horizontal"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/hello_there"
+                      android:layout_gravity="center_horizontal"
+                      android:gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/_20sdp"
+                      android:textSize="@dimen/_20sdp"
+                      android:textColor="@color/colorWhite"
+                      style="@style/styleTextRegular"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/welcome_to_pie_me"
+                      android:layout_gravity="center_horizontal"
+                      android:gravity="center_horizontal"
+                      android:textSize="@dimen/_20sdp"
+                      android:textColor="@color/colorWhite"
+                      style="@style/styleTextSemiBold"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/welcome_desc"
+                      android:layout_gravity="center_horizontal"
+                      android:gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      android:textSize="@dimen/_11sdp"
+                      android:textColor="@color/colorWhite"
+                      style="@style/styleTextRegular"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/login"
+                      android:id="@+id/tvLogin"
+                      android:textSize="@dimen/_12sdp"
+                      android:gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/_30sdp"
+                      android:background="@drawable/bg_btn_white_thirty"
+                      android:padding="@dimen/_13sdp"
+                      android:textColor="@color/colorBlue"
+                      style="@style/styleTextSemiBold"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/register"
+                      android:id="@+id/tvRegister"
+                      android:textSize="@dimen/_12sdp"
+                      android:gravity="center_horizontal"
+                      android:layout_marginTop="@dimen/_10sdp"
+                      android:background="@drawable/bg_btn_blue"
+                      android:padding="@dimen/_13sdp"
+                      android:textColor="@color/colorWhite"
+                      style="@style/styleTextSemiBold"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
