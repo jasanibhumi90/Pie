@@ -7,117 +7,121 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/llReplyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp"
+        android:visibility="visible"
+        android:paddingStart="@dimen/_40sdp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivProfilepicReply"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_pic"
+            app:riv_border_color="@color/colorNoComments"
+            app:riv_border_width="0.5dp"
+            app:riv_corner_radius="@dimen/_20sdp"
+            tools:src="@drawable/profile_pic" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_40sdp"
-            android:paddingLeft="@dimen/_40sdp">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/ivProfilepicReply"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_pic"
-                app:riv_border_color="@color/colorNoComments"
-                app:riv_border_width="0.5dp"
-                app:riv_corner_radius="@dimen/_20sdp"
-                tools:src="@drawable/profile_pic" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:gravity="start|center"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:gravity="start|center"
-                android:orientation="vertical"
-                android:layout_marginLeft="@dimen/_10sdp">
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvUserNameReply"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_13sdp"
-                            android:theme="@style/styleTextMedium"
-                            tools:text="Harna" />
-
-                        <TextView
-                            android:id="@+id/tvCommentsReply"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorGrey700"
-                            android:textSize="@dimen/_11sdp"
-                            android:theme="@style/styleTextMedium"
-                            tools:text="Nice Status:)" />
-                    </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvLikeCountReply"
+                        android:id="@+id/tvUserNameReply"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        android:theme="@style/styleTextMedium" />
+                        android:textSize="@dimen/_11sdp"
+                        android:theme="@style/styleTextMedium"
+                        tools:text="Harna" />
 
-                    <ImageView
-                        android:id="@+id/ivLikeReply"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:contentDescription="@string/content_desc"
-                        android:gravity="center"
-                        android:padding="@dimen/_5sdp"
-                        android:visibility="gone"
-                        app:srcCompat="@drawable/p_heart_liked"
-                        tools:tint="@color/colorAccent" />
-
-                    <ImageView
-                        android:id="@+id/ivCommentMenuReply"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:contentDescription="@string/content_desc"
-                        android:gravity="center"
-                        android:padding="@dimen/_5sdp"
-                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/tvCommentsReply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorGrey700"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginTop="-5dp"
+                        android:theme="@style/styleTextMedium"
+                        tools:text="Nice Status:)" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvLikeCountReply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_marginTop="-5dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:theme="@style/styleTextMedium" />
+
+                <ImageView
+                    android:id="@+id/ivLikeReply"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:contentDescription="@string/content_desc"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/p_heart_liked"
+                    tools:tint="@color/colorAccent" />
+
+                <ImageView
+                    android:id="@+id/ivCommentMenuReply"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:contentDescription="@string/content_desc"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="-4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTimeReply"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvTimeReply"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/colorNoComments"
-                        android:textSize="@dimen/_10sdp"
-                        android:theme="@style/styleTextMedium"
-                        tools:text="Just now" />
-                </LinearLayout>
+                    android:textColor="@color/colorNoComments"
+                    android:textSize="@dimen/_8sdp"
+                    android:theme="@style/styleTextMedium"
+                    tools:text="Just now" />
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llReplyList"

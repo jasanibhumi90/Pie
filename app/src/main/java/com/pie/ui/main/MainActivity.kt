@@ -27,7 +27,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         toolbar.ivProfile.setOnClickListener(this)
         pref.getLoginData()?.let {
-            Glide.with(this).load(it.profile_pic).into(toolbar.ivProfile)
+            if(it.profile_pic.isEmpty())
+            Glide.with(this).load(it.profile_pic).error(R.drawable.profile_pic).into(toolbar.ivProfile)
+            else toolbar.ivProfile.setImageDrawable(resources.getDrawable(R.drawable.profile_pic))
         }
         showFragment(HomeFragment())
     }

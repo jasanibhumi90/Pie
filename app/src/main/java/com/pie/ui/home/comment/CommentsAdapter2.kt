@@ -28,7 +28,6 @@ class CommentsAdapter2(val context: Context, parentList: List<CommentModel>) :
     private var mOnItemViewClickListener: OnItemViewClickListener? = null
     private var mInflater: LayoutInflater? = null
 
-
     init {
         mInflater = LayoutInflater.from(context)
     }
@@ -88,25 +87,45 @@ class CommentsAdapter2(val context: Context, parentList: List<CommentModel>) :
                 llReply.setOnClickListener {
                     mOnItemViewClickListener?.onItemViewClick(it, parentAdapterPosition, -1)
                 }
+
+                if(comments.subcomment.size>0){
+                    tvViewReply.text=resources.getString(R.string.view_reply,comments.subcomment.size.toString())
+                    llViewReply.setOnClickListener {
+                        llViewReply.visibility=View.GONE
+                        expandView()
+                    }
+                    llViewReply.visibility=View.VISIBLE
+                }else{
+                    llViewReply.visibility=View.GONE
+                }
+
             }
         }
 
-        override fun setExpanded(expanded: Boolean) {}
-        override fun onExpansionToggled(expanded: Boolean) {}
+        override fun setExpanded(expanded: Boolean) {
+
+
+        }
+        override fun onExpansionToggled(expanded: Boolean) {
+
+        }
     }
 
     @UiThread
     class CommentReplyHolder(itemView: View, private val mOnItemViewClickListener: OnItemViewClickListener?) : ChildViewHolder<Any>(itemView) {
         fun bind(commentReply: SubComment) {
+
             itemView.run {
                 Glide.with(context).load(commentReply.profile_pic).placeholder(R.drawable.profile_pic).into(ivProfilepicReply)
                 tvUserNameReply.text = commentReply.first_name
                 tvCommentsReply.text = commentReply.comment
                 tvTimeReply.text = commentReply.post_at
-
+             //   subComment.text=resources.getString(R.string.view_reply,parentAdapterPosition)
             }
-
         }
+    }
+    fun getSubCommentSize(parentPosition: Int):Int{
+        return parentList[parentPosition].subcomment.size
     }
 
     fun getParentItem(parentPosition: Int): CommentModel {

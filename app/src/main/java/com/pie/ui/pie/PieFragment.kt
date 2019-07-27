@@ -17,6 +17,7 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.utils.RxBus
 import com.github.tcking.giraffecompressor.GiraffeCompressor
 import com.pie.PieApp
 import com.pie.R
@@ -28,8 +29,16 @@ import com.pie.ui.home.comment.CommentsAdapter2
 import com.pie.ui.piedetail.PieDetailActivity
 import com.pie.utils.*
 import com.pie.utils.AppConstant.Companion.ARG_DATA
+import com.pie.utils.AppConstant.Companion.ARG_DETAIL_COMMENT
+import com.pie.utils.AppConstant.Companion.ARG_DETAIL_DELETE
+import com.pie.utils.AppConstant.Companion.ARG_DETAIL_LIKE
+import com.pie.utils.AppConstant.Companion.ARG_DETAIL_UPDATE
+import com.pie.utils.AppConstant.Companion.ARG_ISLIKE
 import com.pie.utils.AppConstant.Companion.ARG_PIE_DATA
+import com.pie.utils.AppConstant.Companion.ARG_POSITION
 import com.pie.utils.AppConstant.Companion.TYPE_LIKE_POST
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.dialog_alert.*
 import kotlinx.android.synthetic.main.dialog_comments.*
 import kotlinx.android.synthetic.main.dialog_reportpost.*
@@ -86,8 +95,30 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
         pagination.setPaginationListener()
         pagination.setProgressView(aviPage)
 
-
+        init()
         getPies(true)
+    }
+
+    fun init(){
+        mCompositeDisposable.add(RxBus.listen(Bundle::class.java).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io()).subscribe { bundle ->
+                    if (bundle.containsKey(ARG_DETAIL_DELETE)) {
+                        val pos=bundle.getInt(ARG_DETAIL_DELETE)
+                        pieAdapter.removeItem(pos)
+                    }else if(bundle.containsKey(ARG_DETAIL_UPDATE)){
+                        val pos=bundle.getInt(ARG_DETAIL_UPDATE)
+                        val data=pieAdapter.getItem(pos)
+                        data.likes=bundle.getString(ARG_DETAIL_LIKE)
+                        data.like_flag=bundle.getString(ARG_ISLIKE)
+                        pieAdapter.updateItem(pos,data)
+                    }else if(bundle.containsKey(ARG_DETAIL_COMMENT)){
+                        val pos=bundle.getInt(ARG_POSITION)
+                        val oldData=pieAdapter.getItem(pos)
+                        oldData.comments=bundle.getInt(ARG_DETAIL_COMMENT).toString()
+                        pieAdapter.updateItem(pos,oldData)
+                    }
+                })
+
     }
     override fun onLoadMore() {
         pageNo=pageNo+1
@@ -112,7 +143,6 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
                 val pos = p0.tag as Int
                 activity?.startActivity<ImageSliderActivity>(AppConstant.EXTRA_IMAGE_DATA to pieAdapter.getItem(pos).pies_media_url,
                   AppConstant.ARG_POS to 0)
-
             }
             R.id.ivImage2 -> {
                 val pos = p0.tag as Int
@@ -133,11 +163,10 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
 
             }
 
-
             R.id.ivCreatePie -> {
                 val intent = Intent(activity!!, CreatePieActivity::class.java)
                 startActivityForResult(intent, REQUEST_CODE_CREATE_PIE)
-            }
+        }
 
             R.id.ivMenu -> {
                 val pos = p0.tag as Int
@@ -177,7 +206,7 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
             }
             R.id.cvPost->{
                 val id=pieAdapter.getItem(p0.tag as Int).id
-                activity?.startActivity<PieDetailActivity>(AppConstant.ARG_PIE_ID to id)
+                activity?.startActivity<PieDetailActivity>(AppConstant.ARG_PIE_ID to id.toInt(),ARG_POSITION to p0.tag as Int )
             }
             R.id.rlView -> {
                 val pos=p0.tag as Int
@@ -202,6 +231,10 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
             R.id.ivDilogClose -> {
                 commentsdialog.dismiss()
             }
+            R.id.ivReplyClose->{
+                commentsdialog.tvReplyLbl.text=""
+                commentsdialog.llReplyLbl.visibility=View.GONE
+            }
         }
     }
 
@@ -215,12 +248,10 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
 
         popup.inflate(R.menu.option_menu)
         if (pref.getLoginData()?.user_id == userId) {
-            if(pieAdapter.getItem(position).pies_type=="image") {
-                popup.menu.findItem(R.id.menu1).isVisible = true
-            }else if(pieAdapter.getItem(position).pies_type=="video") {
-                popup.menu.findItem(R.id.menu1).isVisible = false
-            }else{
-                popup.menu.findItem(R.id.menu1).isVisible = true
+            when {
+                pieAdapter.getItem(position).pies_type=="image" -> popup.menu.findItem(R.id.menu1).isVisible = true
+                else -> popup.menu.findItem(R.id.menu1).isVisible =
+                    pieAdapter.getItem(position).pies_type != "video"
             }
             popup.menu.findItem(R.id.sharePost).isVisible=false
             popup.menu.findItem(R.id.menu1).title = resources.getString(R.string.menu_editpost)
@@ -299,6 +330,7 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
         if(super.onStatusFalse(resp,true))return
         resp?.data?.let {
             AppLogger.e("tag",gson.toJson(it))
+            sneakerError(activity!!,getString(R.string.pie_shared_succ))
             pieAdapter.addAtFirst(it)
             rvPosts.scrollToPosition(0)
         }
@@ -310,12 +342,12 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
             commentsdialog = Dialog(activity)
             commentsdialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
             commentsdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            commentsdialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-            commentsdialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+            commentsdialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+            commentsdialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
             commentsdialog.setContentView(R.layout.dialog_comments)
 
             commentsdialog.setCanceledOnTouchOutside(false)
-            commentsdialog.window.attributes.windowAnimations = R.style.DialogStyle
+            commentsdialog.window?.attributes?.windowAnimations = R.style.DialogStyle
             commentsdialog.tvSend.startAnimation(fab_open)
             startAnimation(commentsdialog.shimmerViewContainer)
             commentsdialog.ivDilogClose.setOnClickListener(this)
@@ -328,25 +360,67 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
             commentsdialog.tvSend.tag = position
             commentsdialog.rvComments.visibility = View.VISIBLE
 
+           /* edReplyComment.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+            })*/
+
             val lp = WindowManager.LayoutParams()
             val window = commentsdialog.window
             lp.copyFrom(window!!.attributes)
             lp.width = WindowManager.LayoutParams.MATCH_PARENT
             lp.height = WindowManager.LayoutParams.MATCH_PARENT
             window.attributes = lp
-            // commentsDialog.getWindow().setCallback(windowCallback);
             commentsdialog.show()
+
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+    }
+
+    fun getSuggestionUser(userName:String){
+        val request = HashMap<String, Any>()
+        val service = HashMap<String, Any>()
+        val data = HashMap<String, Any>()
+        val auth = HashMap<String, Any>()
+        auth[getString(R.string.param_user_name)] =userName
+        auth[getString(R.string.param_token)] = pref.getToken()
+        request[getString(R.string.data)] = data
+        service[getString(R.string.service)] = getString(R.string.service_suggestion)
+        service[getString(R.string.request)] = request
+        service[getString(R.string.auth)] = auth
+        callApi(requestInterface.getSuggestionUser(service), true)
+            ?.subscribe({
+                OnSuggestionResponse(it)
+            }) {
+                onResponseFailure(it, true)
+            }
+            ?.let { mCompositeDisposable.add(it) }
+    }
+
+    fun OnSuggestionResponse(resp:BaseResponse<Suggestion>){
+        if(onStatusFalse(resp,true))return
+        resp.data?.let {
+
+        }
+
 
     }
     private fun setCommentAdapter(context: Context?, comments: List<CommentModel>) {
         context?.let {
             commentsdialog.rvComments.layoutManager = LinearLayoutManager(context)
             commentsAdapter = CommentsAdapter2(it, comments)
-            commentsAdapter.expandAllParents()
             commentsAdapter.setOnItemViewClickListener(this@PieFragment)
+            commentsAdapter.collapseAllParents()
             commentsdialog.rvComments.adapter = commentsAdapter
         }
     }
@@ -373,11 +447,11 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
                 ?.let { mCompositeDisposable.add(it) }
     }
 
-    private fun onGetCommentResponse(resp: BaseResponse<ArrayList<GetPieView>>) {
+    private fun onGetCommentResponse(resp: BaseResponse<GetPieView>) {
         if (super.onStatusFalse(resp, true)) return
         stopAnimation(commentsdialog.shimmerViewContainer)
         resp.data?.let {
-            it[0].let {
+
             if (it.comment_list.size > 0) {
                 commentsdialog.rvComments.visibility = View.VISIBLE
                 commentsdialog.llNodataFound.visibility = View.GONE
@@ -386,7 +460,8 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
                 commentsdialog.rvComments.visibility = View.GONE
                 commentsdialog.llNodataFound.visibility = View.VISIBLE
             }
-           }
+            commentsAdapter.collapseAllParents()
+
         }
     }
 
@@ -482,8 +557,6 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
 
     private fun getPies(doShowLoader:Boolean) {
         if (AppGlobal.isNetworkConnected(activity!!)) run {
-
-
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()
             val data = HashMap<String, Any>()
@@ -523,12 +596,9 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
                 }
                 if (pageNo == 0) {
                     pieAdapter.addAll(it)
-
                     Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
-
                 } else {
                     pieAdapter.appendAll(it)
-
                 }
             } else {
 
@@ -579,13 +649,10 @@ sneakerSuccess(activity!!,resp.message)
     private fun getReports(position: Int) {
         if (AppGlobal.isNetworkConnected(activity!!)) run {
 
-
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()
             val data = HashMap<String, Any>()
             val auth = HashMap<String, Any>()
-
-
             auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
             auth[getString(R.string.param_token)] = pref.getToken()
 
@@ -666,6 +733,7 @@ sneakerSuccess(activity!!,resp.message)
                 commentsdialog.llReplyLbl.visibility = View.GONE
                 commentsAdapter.addChildItem(pos, SubComment(id = it.id, comment = it.comment, creation_datetime = it.creation_datetime, first_name = it.first_name,
                         last_name = it.last_name, parent_id = it.parent_id, pie_id = it.pie_id, post_at = it.post_at, profile_pic = it.profile_pic, user_id = it.user_id))
+                commentsAdapter.expandParent(pos)
             } else {
                 commentsdialog.edReplyComment.setText("")
                 commentsdialog.llNodataFound?.visibility = View.GONE
@@ -683,8 +751,7 @@ sneakerSuccess(activity!!,resp.message)
             }
         }
     }
-
-    fun addView(flowLayout: FlowLayout) {
+    private fun addView(flowLayout: FlowLayout) {
         if (flowLayout.childCount != 0) {
             flowLayout.removeAllViews()
         }

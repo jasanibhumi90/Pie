@@ -65,10 +65,15 @@ interface RequestInterface {
     fun sharePost(@Body map: HashMap<String, Any>):Observable<BaseResponse<PostModel>>
 
     @POST("WebService/service")
-    fun getPiePostComment(@Body map:HashMap<String,Any>):Observable<BaseResponse<ArrayList<GetPieView>>>
+    fun getPiePostComment(@Body map:HashMap<String,Any>):Observable<BaseResponse<GetPieView>>
+
+    @POST("WebService/service")
+    fun getSuggestionUser(@Body map:HashMap<String,Any>):Observable<BaseResponse<Suggestion>>
 
     @POST("upload/upload_pie_video")
     fun uploadVideo(@Body file:RequestBody ): Observable<BaseResponse<String>>
+
+
 
 
     //endregion

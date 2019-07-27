@@ -22,6 +22,7 @@ import okhttp3.RequestBody
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.okButton
 import java.io.File
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
@@ -107,7 +108,19 @@ class AppGlobal {
             context.windowManager.defaultDisplay.getMetrics(displaymetrics)
             return displaymetrics.heightPixels
         }
+        fun formatDateTime(dateTime:String,inputFormat: String,outputFormat:String): String {
+            val inputFormat = SimpleDateFormat(inputFormat)
+            val outputFormat = SimpleDateFormat(outputFormat)
+            var date : Date? =null;
+            var str = "";
 
+            try {
+                date = inputFormat.parse(dateTime);
+                str = outputFormat.format(date);
+            } catch ( e : ParseException) {
+            }
+            return str;
+        }
         fun getDeviceWidth(context: Activity): Int {
             val displaymetrics = DisplayMetrics()
             context.windowManager.defaultDisplay.getMetrics(displaymetrics)

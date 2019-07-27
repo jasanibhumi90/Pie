@@ -11,10 +11,13 @@ import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.adawatie.data.network.model.CommonResponse
 import com.adawatie.utils.ResponseCode
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.pie.PieApp
 import com.pie.R
 import com.pie.data.network.RequestInterface
@@ -62,7 +65,8 @@ open class BaseActivity : AppCompatActivity() {
     protected val TAG: String = this::class.java.canonicalName ?: this::class.java.name
     var handler: Handler = Handler()
     private var isConnected: Boolean = true
-
+    var fab_open: Animation? = null
+    var fab_close: Animation? = null
     protected var mCompositeDisposable = CompositeDisposable()
     private var noOfApiCall = 0
     private var onFailure: OnFailure? = null
@@ -71,7 +75,8 @@ open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(0, 0)
-
+        fab_open = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+        fab_close = AnimationUtils.loadAnimation(this, R.anim.fab_close)
     }
 
     override fun onDestroy() {
@@ -268,6 +273,17 @@ open class BaseActivity : AppCompatActivity() {
 //        }
 //
 //        dialog.show()
+    }
+
+    fun startAnimation(shimmerFrameLayout: ShimmerFrameLayout?) {
+        shimmerFrameLayout?.visibility = View.VISIBLE
+        shimmerFrameLayout?.startShimmer()
+
+    }
+
+    fun stopAnimation(shimmerFrameLayout: ShimmerFrameLayout?) {
+        shimmerFrameLayout?.visibility = View.GONE
+        shimmerFrameLayout?.stopShimmer()
     }
 
     private fun clearNotifications() {

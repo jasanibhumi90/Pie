@@ -33,32 +33,29 @@ data class LoginModel(
     var device_type: String,
     var device_id: String,
     var is_blocked: String
-
-
 ) : Serializable
 
 
-
 data class PostModel(
-        var id: String="",
-        var user_id: String="",
-        var pie_user_id: String="",
-        var parent_id: String,
-        var post_type: String,
-        var pies_text: String,
-        var pies_type: String,
-        var pies_media: String,
-        var profile_pic: String,
-        var first_name: String,
-        var last_name: String,
-        var creation_datetime: String,
-        var likes: String,
-        var comments: String,
-        var view_count:String,
-        var shared: String,
-        var pies_media_url: ArrayList<String> ?= ArrayList(),
-        var post_at: String,
-        var like_flag:String?=""
+    var id: String = "",
+    var user_id: String = "",
+    var pie_user_id: String = "",
+    var parent_id: String,
+    var post_type: String,
+    var pies_text: String,
+    var pies_type: String,
+    var pies_media: String,
+    var profile_pic: String,
+    var first_name: String,
+    var last_name: String,
+    var creation_datetime: String,
+    var likes: String,
+    var comments: String,
+    var view_count: String,
+    var shared: String,
+    var pies_media_url: ArrayList<String>? = ArrayList(),
+    var post_at: String,
+    var like_flag: String? = ""
 ) : Serializable, Cloneable {
     public override fun clone(): PostModel {
         return super.clone() as PostModel
@@ -66,26 +63,24 @@ data class PostModel(
 }
 
 data class ReportModel(
-    var id: String="",
-    var report_name: String=""
-
-
-
-
+    var id: String = "",
+    var report_name: String = ""
 ) : Serializable
 
-data class CommentModel(val id:String?="",
-                        val parent_id:String?="",
-                        val pie_id:String?="",
-                        val user_id:String?="",
-                        val comment:String?="",
-                        val first_name:String?="",
-                        val last_name:String?="",
-                        val profile_pic:String?="",
-                        val creation_datetime:String?="",
-                        val post_at:String?="",
-                        val subcomment: ArrayList<SubComment> = ArrayList()): Serializable,
-        Parent<SubComment> {
+data class CommentModel(
+    val id: String? = "",
+    val parent_id: String? = "",
+    val pie_id: String? = "",
+    val user_id: String? = "",
+    val comment: String? = "",
+    val first_name: String? = "",
+    val last_name: String? = "",
+    val profile_pic: String? = "",
+    val creation_datetime: String? = "",
+    val post_at: String? = "",
+    val subcomment: ArrayList<SubComment> = ArrayList()
+) : Serializable,
+    Parent<SubComment> {
     override fun getChildList(): MutableList<SubComment> {
         return subcomment
     }
@@ -95,33 +90,38 @@ data class CommentModel(val id:String?="",
         return true
     }
 }
-data class SubComment(val id:String?="",
-                      val parent_id:String?="",
-                      val pie_id:String?="",
-                      val user_id:String?="",
-                      val comment:String?="",
-                      val first_name:String?="",
-                      val last_name:String?="",
-                      val profile_pic:String?="",
-                      val creation_datetime:String?="",
-                      val post_at:String?=""): Serializable
 
-data class LikePost(var count:Int?=0)
-data class PostComment(val id:String?="",
-                       val parent_id:String?="",
-                       val pie_id:String?="",
-                       val user_id:String?="",
-                       val comment:String?="",
-                       val first_name:String?="",
-                       val last_name:String?="",
-                       val profile_pic:String?="",
-                       val creation_datetime:String?="",
-                       val post_at:String?="")
+data class SubComment(
+    val id: String? = "",
+    val parent_id: String? = "",
+    val pie_id: String? = "",
+    val user_id: String? = "",
+    val comment: String? = "",
+    val first_name: String? = "",
+    val last_name: String? = "",
+    val profile_pic: String? = "",
+    val creation_datetime: String? = "",
+    val post_at: String? = ""
+) : Serializable
+
+data class LikePost(var count: Int? = 0)
+data class PostComment(
+    val id: String? = "",
+    val parent_id: String? = "",
+    val pie_id: String? = "",
+    val user_id: String? = "",
+    val comment: String? = "",
+    val first_name: String? = "",
+    val last_name: String? = "",
+    val profile_pic: String? = "",
+    val creation_datetime: String? = "",
+    val post_at: String? = ""
+) : Serializable
 
 data class GetPieView(
-    var id: String="",
-    var user_id: String="",
-    var pie_user_id: String="",
+    var id: String = "",
+    var user_id: String = "",
+    var pie_user_id: String = "",
     var parent_id: String,
     var post_type: String,
     var pies_text: String,
@@ -132,26 +132,46 @@ data class GetPieView(
     var creation_datetime: String,
     var likes: String,
     var comments: String,
-    var view_count:String,
+    var view_count: String,
     var shared: String,
     var pies_media_url: ArrayList<String>,
     var post_at: String,
-    var like_flag:String?="",
-    val comment_list:ArrayList<CommentModel>):Serializable
+    var like_flag: String? = "",
+    val comment_list: ArrayList<CommentModel>,
+    val like_list: ArrayList<LikeModel>
+) : Serializable
 
-data class SharePost(val id:String?="",
-                     val user_id:String?="",
-                     val pie_user_id:String?="",
-                     val parent_id:String?="",
-                     val post_type:String?="",
-                     val pies_text:String?="",
-                     val pies_media:String?="",
-                     val profile_pic:String="",
-                     val first_name:String="",
-                     val last_name:String?="",
-                     val creation_datetime:String?="",
-                     val likes:String?="",
-                     val like_flag:String?="",
-                     val comments:String?="",
-                     val shared:String?="")
+data class SharePost(
+    val id: String? = "",
+    val user_id: String? = "",
+    val pie_user_id: String? = "",
+    val parent_id: String? = "",
+    val post_type: String? = "",
+    val pies_text: String? = "",
+    val pies_media: String? = "",
+    val profile_pic: String = "",
+    val first_name: String = "",
+    val last_name: String? = "",
+    val creation_datetime: String? = "",
+    val likes: String? = "",
+    val like_flag: String? = "",
+    val comments: String? = "",
+    val shared: String? = ""
+) : Serializable
 
+data class LikeModel(
+    var user_id: String? = "",
+    var profile_pic: String? = "",
+    var first_name: String? = "",
+    var last_name: String? = "",
+    var creation_datetime: String? = "",
+    var followstatus: String? = "0",
+    var post_at: String? = ""
+) : Serializable
+
+data class Suggestion(
+    val user_id: String? = "",
+    val first_name: String? = "",
+    val user_name: String? = "",
+    val profile_pic: String? = ""
+) : Serializable

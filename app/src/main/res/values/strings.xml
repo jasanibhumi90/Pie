@@ -118,6 +118,8 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="like">Likes</string>
+    <string name="likepost">Like</string>
+    <string name="liked">Liked</string>
     <string name="pie">Pie</string>
 
 
@@ -191,6 +193,9 @@
     <!--create pie-->
     <string name="create_or_pie_something">write or pie something....</string>
     <string name="pie_now">Pie Now</string>
+    <string name="update_pie">Update pie</string>
+    <string name="update_succ">Pie updated successfully</string>
+    <string name="pie_shared_succ">Pie shared successfully</string>
 
     <string name="video_saved_at">Video saves at : $%1s</string>
     <string name="pick_a_video">Select or record a a video below to try it out:</string>
@@ -209,24 +214,27 @@
     <string name="menu_reportpost">Report Post</string>
 
     <string name="loginfirst_error">Please login first!</string>
-    <item type="id" name="glide_tag" />
+    <item name="glide_tag" type="id" />
     <item name="TYPE" type="id" />
 
     <!--comment dialog-->
     <string name="comments">Comments</string>
     <string name="replycomment">Replies</string>
     <string name="nocomments">No Comments yet</string>
+    <string name="nolike">No likes yet!</string>
     <string name="nocommentsSub">be the first to comment on this post</string>
     <string name="writecomments">Write comment…</string>
     <string name="you_not_eligible">You are not eligible for comments.</string>
     <string name="reply">Reply</string>
     <string name="replying_to">Replying to %1$s</string>
+    <string name="total_like">%1$s Likes</string>
 
     <!--share post-->
     <string name="warning_share">Are you sure you want to share this post?</string>
     <string name="ok">OK</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="view_reply"> View replies (%1$s)</string>
 
     <!--warning-->
     <string name="warning_logout">Are you sure want to logout?</string>
@@ -236,5 +244,10 @@
     <string name="warning_delete_post">Are you sure want to delete post?</string>
     <string name="warning_relogin">You already login with this mobile number in another device. If you want to login in this device then may be you lost unsynced coin that from already login device. You can logout from old device and login here or you can login here forcefully. Do you want login in this device?</string>
     <string name="close">close</string>
+    <string name="something_wrong">Something went wrong please try again!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

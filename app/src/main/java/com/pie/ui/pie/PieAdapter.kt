@@ -23,6 +23,7 @@ class PieAdapter(
             /*if (data.profile_pic.isNotEmpty()) {
                 Glide.with(mContext).load(data.profile_pic).load(ivProfile)
             }*/
+            //LoadImage(data.profile_pic,ivProfile)
             Glide.with(mContext).load(data.profile_pic).apply(RequestOptions().placeholder(R.drawable.profile_pic)).into(ivProfile)
             tvUserName.text = (data.first_name + " " + data.last_name)
             tvTime.text = data.post_at
@@ -55,48 +56,58 @@ class PieAdapter(
                         llOne.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0],ivImage1)
+                     //   Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                     } else if (data.pies_media_url?.size!! == 2) {
                         llOne.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0],ivImage1)
+                      //  Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                         ivImage2.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
+                        LoadImage(data.pies_media_url!![1],ivImage2)
+                     //   Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
                     } else if (data.pies_media_url?.size!! == 3) {
                         llOne.visibility = View.VISIBLE
                         llTwo.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0],ivImage1)
+                       // Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                         ivImage2.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
+                        LoadImage(data.pies_media_url!![1],ivImage2)
+                       // Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
 
                         ivImage3.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
+                        LoadImage(data.pies_media_url!![2],ivImage3)
+                        //Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
 
                     } else if (data.pies_media_url?.size!! == 4) {
                         llOne.visibility = View.VISIBLE
                         llTwo.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0],ivImage1)
+                      //  Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                         ivImage2.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
+                        LoadImage(data.pies_media_url!![1],ivImage2)
+                      //  Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
 
                         ivImage3.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
+                        LoadImage(data.pies_media_url!![2],ivImage3)
+                      //  Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
 
 
                         ivImage4.visibility = View.VISIBLE
-                        Glide.with(mContext).load(data.pies_media_url!![3]).into(ivImage4)
+                        LoadImage(data.pies_media_url!![3],ivImage4)
+                        //Glide.with(mContext).load(data.pies_media_url!![3]).into(ivImage4)
 
                     }
 

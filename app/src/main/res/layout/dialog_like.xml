@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:f="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/comment_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_marginTop="@dimen/_55sdp"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="60dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_top_round_white"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tvLikeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_15sdp"
+                android:text="@string/like"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:theme="@style/styleTextSemiBold" />
+
+            <ImageView
+                android:id="@+id/ivDilogCloseLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:contentDescription="@string/content_desc"
+                android:padding="@dimen/_8sdp"
+                android:rotation="90"
+                android:src="@drawable/arrow_right"
+                android:tint="@color/colorArrow" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.4"
+            android:background="@color/colorNoComments" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerViewContainerLike"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+
+                <include layout="@layout/placeholder_item" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLike"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            tools:listitem="@layout/like_row_layout" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/aviPagination"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone"
+            app:indicatorColor="@color/colorAccent"
+            app:indicatorName="BallRotateIndicator" />
+
+        <LinearLayout
+            android:id="@+id/llNodataFoundLike"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:text="@string/nolike"
+                android:textColor="@color/colorNoComments"
+                android:textSize="@dimen/_14sdp"
+                android:theme="@style/styleTextSemiBold" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.4"
+            android:background="@color/colorNoComments" />
+
+    </LinearLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/dialogAvi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="BallClipRotateIndicator" />
+</RelativeLayout>

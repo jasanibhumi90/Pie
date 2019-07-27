@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:contentDescription="@string/content_desc"
+        android:src="@drawable/profile_pic"
+        android:scaleType="centerCrop"
+        app:riv_border_width="0.5dp"
+        app:riv_corner_radius="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvName" />
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/styleTextSemiBold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:singleLine="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toStartOf="@+id/tvFollow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfile"
+        tools:text="Austin Distel" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        style="@style/styleTextMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="-5dp"
+        android:singleLine="true"
+        android:textColor="@color/colorGrey500"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toStartOf="@+id/tvFollow"
+        app:layout_constraintStart_toEndOf="@+id/ivProfile"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="satindenal"/>
+
+    <TextView
+        android:id="@+id/tvFollow"
+        style="@style/styleTextSemiBold"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:gravity="center"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_15sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:background="@drawable/bg_border_blue"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_11sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvName"
+        tools:text="@string/follow" />
+</androidx.constraintlayout.widget.ConstraintLayout>

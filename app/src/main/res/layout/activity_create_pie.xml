@@ -104,7 +104,7 @@
                   android:paddingTop="@dimen/_7sdp"
                   android:paddingBottom="@dimen/_7sdp"
                   style="@style/styleTextMedium"
-                  android:text="@string/pie_now"
+                  android:text="@string/update_pie"
                   android:layout_gravity="right|center_vertical"/>
 
     </FrameLayout>

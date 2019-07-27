@@ -1,11 +1,15 @@
 package com.pie.ui.base
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.irozon.sneaker.widget.RoundedImageView
 import com.pie.PieApp
 import com.pie.data.prefs.AppPreferencesHelper
@@ -45,6 +49,20 @@ abstract class BaseAdapter<T>(val layout: Int = 0) : RecyclerView.Adapter<BaseAd
         } else {
             mOnPayloadBind?.onPayloadBind(holder.getBindView(), position, list[position], payloads)
         }
+    }
+
+    fun LoadImage(image:String,imageView:com.makeramen.roundedimageview.RoundedImageView){
+        Glide.with(mContext)
+            .asBitmap()
+            .load(image)
+            .into(object : CustomTarget<Bitmap>(){
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    imageView.setImageBitmap(resource)
+                }
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+            })
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

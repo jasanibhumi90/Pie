@@ -33,10 +33,12 @@ import com.pie.R
 import com.pie.model.BaseResponse
 import com.pie.model.PostModel
 import com.pie.ui.base.BaseActivity
+import com.pie.ui.main.MainActivity
 import com.pie.ui.trim.ThirdPartyIntentsUtil
 import com.pie.ui.trim.TrimmerActivity
 import com.pie.utils.AppConstant.Companion.ARG_DATA
 import com.pie.utils.AppConstant.Companion.ARG_INPUT_VIDEO
+import com.pie.utils.AppConstant.Companion.ARG_ISFROM_PIEDETAIL
 import com.pie.utils.AppConstant.Companion.ARG_PIE_DATA
 import com.pie.utils.AppGlobal
 import com.pie.utils.AppLogger
@@ -49,6 +51,8 @@ import kotlinx.android.synthetic.main.listitem_image.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 
@@ -62,10 +66,6 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
         PermissionUtils.OnPermissionResponse, VideoPickerCallback {
     lateinit var pieData: PostModel
     var isdone = false
-
-
-
-
 
     companion object {
         private const val REQUEST_VIDEO_TRIMMER = 1
@@ -510,9 +510,6 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
             data[getString(R.string.param_remove_medias)] = TextUtils.join(",", arRemoveFiles)
             data[getString(R.string.param_pies_type)] = type
 
-
-
-
             auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
             auth[getString(R.string.param_token)] = pref.getToken()
 
@@ -535,9 +532,15 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
         Log.e("tag", "resp" + resp)
         if (super.onStatusFalse(resp, true)) return
 
-        val data = Intent()
-        data.putExtra(ARG_DATA, resp.data)
-        setResult(RESULT_OK, data)
+        sneakerError(this,getString(R.string.update_pie))
+        if(intent.hasExtra(ARG_ISFROM_PIEDETAIL)) {
+            startActivity(intentFor<MainActivity>().clearTop())
+
+        }else {
+            val data = Intent()
+            data.putExtra(ARG_DATA, resp.data)
+            setResult(RESULT_OK, data)
+        }
         finish()
     }
 
