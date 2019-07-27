@@ -384,7 +384,6 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun getSuggestionUser(userName:String){
