@@ -16,38 +16,44 @@
         android:scaleType="centerCrop"
         app:riv_border_width="0.5dp"
         app:riv_corner_radius="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvName" />
-
-    <TextView
-        android:id="@+id/tvName"
-        style="@style/styleTextSemiBold"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:singleLine="true"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintEnd_toStartOf="@+id/tvFollow"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivProfile"
-        tools:text="Austin Distel" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvUserName"
-        style="@style/styleTextMedium"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginTop="-5dp"
-        android:singleLine="true"
-        android:textColor="@color/colorGrey500"
-        android:textSize="@dimen/_11sdp"
+        app:layout_constraintTop_toTopOf="@+id/ivProfile"
         app:layout_constraintEnd_toStartOf="@+id/tvFollow"
         app:layout_constraintStart_toEndOf="@+id/ivProfile"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
-        tools:text="satindenal"/>
+        app:layout_constraintBottom_toBottomOf="@id/ivProfile"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/styleTextSemiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:singleLine="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            tools:text="Austin Distel" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            style="@style/styleTextMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:singleLine="true"
+            android:layout_marginTop="-5dp"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="satindenal"/>
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/tvFollow"
@@ -64,8 +70,8 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/_11sdp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvName"
         tools:text="@string/follow" />
 </androidx.constraintlayout.widget.ConstraintLayout>

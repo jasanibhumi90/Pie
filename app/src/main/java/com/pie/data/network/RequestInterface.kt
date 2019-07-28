@@ -68,6 +68,9 @@ interface RequestInterface {
     fun getPiePostComment(@Body map:HashMap<String,Any>):Observable<BaseResponse<GetPieView>>
 
     @POST("WebService/service")
+    fun getLikes(@Body map:HashMap<String,Any>):Observable<BaseResponse<GetPieView>>
+
+    @POST("WebService/service")
     fun getSuggestionUser(@Body map:HashMap<String,Any>):Observable<BaseResponse<Suggestion>>
 
     @POST("upload/upload_pie_video")

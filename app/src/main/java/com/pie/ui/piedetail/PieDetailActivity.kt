@@ -87,6 +87,7 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
     }
 
     private fun clickListener() {
+        ivBack.setOnClickListener(this)
         tvSend.setOnClickListener(this)
         tvLikes.setOnClickListener(this)
         llLikeLayout.setOnClickListener(this)
@@ -196,7 +197,7 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
             tvComments.text = it.comments
             tvViews.text = it.view_count
             setLikeReflect(it.like_flag.toString())
-            if (it.comment_list.size > 0) {
+            if (it.comment_list!!.size > 0) {
                 rvComments.visibility = View.VISIBLE
                 llNodataFound.visibility = View.GONE
                 commentsAdapter.appendAll(it.comment_list)
@@ -206,7 +207,7 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
                 llNodataFound.visibility = View.VISIBLE
             }
             commentsAdapter.collapseAllParents()
-            AppLogger.e("tag", it.like_list.size.toString())
+            AppLogger.e("tag", it.like_list!!.size.toString())
             if (it.like_list.isNotEmpty()) {
                 likeResp = it.like_list
             }
@@ -342,6 +343,9 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
             }*/
             R.id.ivReplyCloseDetail->{
                 llReplyLbl.visibility=View.GONE
+            }
+            R.id.ivBack->{
+                super.onBackPressed()
             }
 
         }
@@ -571,7 +575,6 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
         }
 
     }
-
 
     private fun deletePie() {
         if (AppGlobal.isNetworkConnected(this)) run {

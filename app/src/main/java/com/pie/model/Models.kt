@@ -54,6 +54,7 @@ data class PostModel(
     var view_count: String,
     var shared: String,
     var pies_media_url: ArrayList<String>? = ArrayList(),
+    var comment_list:ArrayList<CommentModel>?= ArrayList(),
     var post_at: String,
     var like_flag: String? = ""
 ) : Serializable, Cloneable {
@@ -137,8 +138,8 @@ data class GetPieView(
     var pies_media_url: ArrayList<String>,
     var post_at: String,
     var like_flag: String? = "",
-    val comment_list: ArrayList<CommentModel>,
-    val like_list: ArrayList<LikeModel>
+    val comment_list: ArrayList<CommentModel>?=ArrayList(),
+    val like_list: ArrayList<LikeModel>?= ArrayList()
 ) : Serializable
 
 data class SharePost(
