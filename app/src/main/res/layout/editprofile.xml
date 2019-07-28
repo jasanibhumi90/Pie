@@ -127,11 +127,13 @@
                       android:singleLine="true"
                       android:layout_marginTop="@dimen/_5sdp"
                       android:padding="@dimen/_10sdp"
+                        android:background="@drawable/bg_btn_disabled"
                       android:textColor="@color/colorBlack"
                       android:textSize="@dimen/_13sdp"
                       android:id="@+id/etEmailAddress"
                       style="@style/styleTextMedium"
-                      android:background="@drawable/bg_btn_white_five"/>
+                        android:enabled="false"
+                      />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:textSize="@dimen/_12sdp"
                       android:textColor="@color/edbg"
@@ -174,6 +176,7 @@
               android:textColor="@color/colorWhite"
               android:textSize="@dimen/_13sdp"
               android:text="Save"
+        android:id="@+id/tvSave"
               android:gravity="center_horizontal"
               style="@style/styleTextMedium"
               android:layout_alignParentBottom="true"

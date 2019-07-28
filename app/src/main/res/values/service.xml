@@ -45,6 +45,7 @@
     <string name="param_new_password_confirmation">new_password_confirmation</string>
     <string name="param_first_name">first_name</string>
     <string name="param_last_name">last_name</string>
+    <string name="param_profile_status">profile_status</string>
     <string name="param_email_id">email_id</string>
     <string name="param_phone_no">phone_no</string>
     <string name="param_password">password</string>
