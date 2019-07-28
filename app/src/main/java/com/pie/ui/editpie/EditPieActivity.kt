@@ -237,8 +237,10 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
 
 
     private fun pickImageSingle() {
-        CropImage.activity()
-                .start(this)
+        imagePicker =  ImagePicker(this)
+        imagePicker?.setImagePickerCallback(this)
+        imagePicker?.allowMultiple()
+        imagePicker?.pickImage()
 
     }
 
@@ -272,8 +274,9 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
     override fun onImagesChosen(p0: MutableList<ChosenImage>?) {
 
         if (p0!!.isNotEmpty()) {
-            CropImage.activity(Uri.parse(p0[0].queryUri))
-                    .start(this)
+            for (i in 0 until p0.size) {
+                addView(p0[i].originalPath, false, i)
+            }
         }
     }
 
@@ -437,7 +440,7 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
                 if (videoPath.isNotEmpty()) {
                     uploadVideo()
                 } else {
-                    createPie("","")
+                    createPie("image","")
                 }
             }
         } else {

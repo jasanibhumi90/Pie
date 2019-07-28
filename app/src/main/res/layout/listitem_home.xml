@@ -102,6 +102,7 @@
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@color/colorBlack"
+
                 android:visibility="gone"
                 app:riv_corner_radius="@dimen/_5sdp" />
 

@@ -199,11 +199,16 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
 
 
     private fun pickImageSingle() {
-        CropImage.activity()
-            .start(this)
-
+        imagePicker =  ImagePicker(this)
+        imagePicker?.setImagePickerCallback(this)
+        imagePicker?.allowMultiple()
+        imagePicker?.pickImage()
     }
-
+ private fun  prepareImagePicker():ImagePicker {
+        val imagePicker =  ImagePicker(this);
+        imagePicker?.setImagePickerCallback(this);
+        return imagePicker;
+    }
     override fun onPermissionGranted(requestCode: Int) {
         when (requestCode) {
             PermissionUtils.REQUEST_CODE_GALLERY_PERMISSION -> {
@@ -234,8 +239,7 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
     override fun onImagesChosen(p0: MutableList<ChosenImage>?) {
 
         if (p0!!.isNotEmpty()) {
-            CropImage.activity(Uri.parse(p0[0].queryUri))
-                .start(this)
+          p0.map { addView(it.originalPath) }
         }
     }
 
@@ -260,6 +264,7 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
                 Picker.PICK_IMAGE_DEVICE -> {
                     if (imagePicker == null) {
                         imagePicker = ImagePicker(this)
+
                         imagePicker!!.setImagePickerCallback(this)
                     }
                     imagePicker!!.submit(data)
@@ -307,6 +312,7 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
                 201 -> {
                     val  progressDoalog =  ProgressDialog(this)
                     progressDoalog.setCancelable(false)
+
                     progressDoalog.setMessage("Compressing....")
                     progressDoalog.show()
                     val trimmedUri: Uri? = data?.getParcelableExtra(CreatePieActivity.EXTRA_INPUT_URI)
@@ -362,7 +368,7 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
         arFiles.add(pickerPath)
         linearLayout.ivRemove.setOnClickListener(this)
         Glide.with(this).load(pickerPath).into(linearLayout.ivImage)
-        llImages.addView(linearLayout, 0)
+        llImages.addView(linearLayout, llImages.childCount)
     }
 
 
