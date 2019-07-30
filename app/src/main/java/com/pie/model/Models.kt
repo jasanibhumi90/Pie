@@ -170,6 +170,50 @@ data class LikeModel(
     var post_at: String? = ""
 ) : Serializable
 
+data class Profile(
+    var user_id: String,
+    var first_name: String,
+    var last_name: String,
+    var user_name: String,
+    var profile_pic: String,
+    var gender: String,
+    var things_ids:String,
+    var profile_status: String,
+    var country_code: String,
+    var country_name: String,
+    var phone_no: String,
+    var wallet: String,
+    var email_id: String,
+    var password: String,
+    var mobile_code: String,
+    var is_verify: String,
+    var device_type: String,
+    var device_id: String,
+    var is_blocked: String,
+    var birth_date: String,
+    var is_deleted:String,
+    var last_login:String,
+    var creation_datetime:String,
+    var modification_datetime:String,
+    var deletion_datetime:String,
+    var post_at:String,
+    var countpies:String,
+    var piemate:ArrayList<Piemate>?=ArrayList(),
+    var countpiemate:String,
+    var mealsorevent:String,
+    val pie_list:ArrayList<PostModel>?=ArrayList()
+):Serializable
+
+data class Piemate(
+    var profile_pic:String,
+    var first_name:String,
+    var last_name:String,
+    var user_name:String,
+    var creation_datetime:String,
+    val followstatus:String,
+    val post_at:String
+):Serializable
+
 data class Suggestion(
     val user_id: String? = "",
     val first_name: String? = "",

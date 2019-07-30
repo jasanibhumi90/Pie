@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
     android:orientation="vertical">
 
     <LinearLayout
@@ -102,8 +100,14 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_12sdp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/tab_text" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="0dp"
@@ -118,16 +122,26 @@
                 app:layout_constraintEnd_toStartOf="@id/tvPiemates"
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/tvPies"/>
+
             <TextView
-                style="@style/styleTextSemiBold"
+                style="@style/styleTextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pies"
+                android:id="@+id/pie"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14sdp"
                 app:layout_constraintStart_toStartOf="@id/tvPies"
                 app:layout_constraintEnd_toEndOf="@id/tvPies"
-                app:layout_constraintTop_toBottomOf="@id/tvPies"
-                android:layout_width="wrap_content"
-                android:text="@string/pies"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/colorWhite"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toBottomOf="@id/tvPies" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/pie"/>
+
 
             <TextView
                 android:layout_width="0dp"
@@ -142,7 +156,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/tvPiemates"/>
             <TextView
-                style="@style/styleTextSemiBold"
+                style="@style/styleTextRegular"
                 app:layout_constraintTop_toBottomOf="@id/tvPiemates"
                 android:layout_width="wrap_content"
                 android:text="@string/pie_mate"
@@ -165,7 +179,7 @@
                 app:layout_constraintStart_toEndOf="@id/tvPiemates"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
-                style="@style/styleTextSemiBold"
+                style="@style/styleTextRegular"
                 app:layout_constraintStart_toStartOf="@id/tvMeals"
                 app:layout_constraintEnd_toEndOf="@id/tvMeals"
                 app:layout_constraintTop_toBottomOf="@id/tvMeals"
@@ -192,11 +206,6 @@
         app:tabTextColor="@color/tab_text">
 
     </com.google.android.material.tabs.TabLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/tab_text" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"

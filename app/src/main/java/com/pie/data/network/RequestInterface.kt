@@ -76,6 +76,11 @@ interface RequestInterface {
     @POST("upload/upload_pie_video")
     fun uploadVideo(@Body file:RequestBody ): Observable<BaseResponse<String>>
 
+    @POST("WebService/service")
+    fun getProfile(@Body map: HashMap<String, Any> ): Observable<BaseResponse<Profile>>
+
+
+
 
 
 

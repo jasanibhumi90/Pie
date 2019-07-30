@@ -32,6 +32,7 @@ class AppConstant {
         const val ARG_ISFROM_PIEDETAIL="ARG_ISFROM_PIEDETAIL"
         const val REQUEST_EDIT_PROFILE=51
         const val IS_EDIT_PROFILE="edit_profile"
+        const val ARG_PIE_PROFILE_ID="pie_profile_id"
 
 
    

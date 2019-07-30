@@ -92,7 +92,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         super.onViewCreated(view, savedInstanceState)
         GiraffeCompressor.init(context)
         ivCreatePie.setOnClickListener(this)
-
         /*string*/
         pieAdapter = PieAdapter(R.layout.listitem_home, this, TYPE_LIKE_POST)
         val linearLayoutManager = LinearLayoutManager(activity)
@@ -106,8 +105,17 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         pagination.setProgressView(aviPage)
 
         init()
-        getPies(true)
+        arguments?.let {
+            arguments?.getSerializable(ARG_PIE_DATA)
+            setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
+            }?:run {
+            getPies(true)
+        }
+
+
+
     }
+
 
     fun init() {
         mCompositeDisposable.add(RxBus.listen(Bundle::class.java).observeOn(AndroidSchedulers.mainThread())
@@ -133,7 +141,12 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     override fun onLoadMore() {
         pageNo = pageNo + 1
-        getPies(false)
+        arguments?.let {
+            setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
+        }?:kotlin.run {
+            getPies(false)
+        }
+
 
     }
 
@@ -195,7 +208,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             R.id.tvLikes -> {
                 likeDialog(pieAdapter.getItem(p0.tag as Int).id)
             }
-            R.id.ivLike->{
+            R.id.ivLike -> {
                 if (pref.isLogin()) {
                     val pos = p0.tag as Int
                     val data = getDataByType(p0.getTag(R.id.TYPE).toString(), pos).clone()
@@ -274,7 +287,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                 commentsdialog.tvReplyLbl.text = ""
                 commentsdialog.llReplyLbl.visibility = View.GONE
             }
-            R.id.ivDilogCloseLike->{
+            R.id.ivDilogCloseLike -> {
                 likeDialog.dismiss()
             }
         }
@@ -522,7 +535,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     }
 
-    private fun getLikes(pie_id:String){
+    private fun getLikes(pie_id: String) {
         val request = HashMap<String, Any>()
         val service = HashMap<String, Any>()
         val data = HashMap<String, Any>()
@@ -695,25 +708,28 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
     ) {
         Log.e("tag", "resp" + gson.toJson(resp))
         if (super.onStatusFalse(resp, doShowLoader)) return
-
-        pagination.setItemLoaded()
         resp.data?.let {
-            if (it.size != 0) {
+            setPieListWithPagination(resp.data)
+        }
+    }
 
+    private fun setPieListWithPagination(list: ArrayList<PostModel>) {
+        pagination.setItemLoaded()
+            if (list.size != 0) {
                 pagination.setItemLoaded()
-                if (it.size < 10) {
+                if (list.size < 10) {
                     pagination.setLoadMore(false)
                 }
                 if (pageNo == 0) {
-                    pieAdapter.addAll(it)
+                    pieAdapter.addAll(list)
+                    if(list.size>0)
                     Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
                 } else {
-                    pieAdapter.appendAll(it)
+                    pieAdapter.appendAll(list)
                 }
             } else {
 
             }
-        }
     }
 
     private fun deletePie(position: Int) {
@@ -978,7 +994,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     override fun onItemViewClick(v: View, parentPosition: Int, childPosition: Int) {
         when (v.id) {
-            R.id.llReply-> {
+            R.id.llReply -> {
                 val comment = commentsAdapter.getParentItem(parentPosition)
                 commentsdialog.llReplyLbl.visibility = View.VISIBLE
                 commentsdialog.tvSend.tag = parentPosition
@@ -986,8 +1002,8 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                 replyId = comment.id!!
                 commentsdialog.tvReplyLbl.text = getString(R.string.replying_to, comment.first_name)
             }
-            R.id.llReplyOfReply->{
-                val comment = commentsAdapter.getChildItem(parentPosition,childPosition)
+            R.id.llReplyOfReply -> {
+                val comment = commentsAdapter.getChildItem(parentPosition, childPosition)
                 commentsdialog.llReplyLbl.visibility = View.VISIBLE
                 commentsdialog.tvSend.tag = parentPosition
                 commentsdialog.llReplyLbl.tag = comment.parent_id

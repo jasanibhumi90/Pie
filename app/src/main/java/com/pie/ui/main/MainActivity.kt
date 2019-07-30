@@ -17,6 +17,7 @@ import com.pie.ui.home.HomeFragment
 import com.pie.ui.pie.PieFragment
 import com.pie.ui.profile.ProfileActivity
 import com.pie.utils.AppConstant
+import com.pie.utils.AppConstant.Companion.ARG_PIE_PROFILE_ID
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -54,7 +55,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ivProfile->{
-                startActivity<ProfileActivity>()
+                pref.getLoginData()?.let {
+                    startActivity<ProfileActivity>(ARG_PIE_PROFILE_ID to it.user_id)
+                }
             }
         }
     }

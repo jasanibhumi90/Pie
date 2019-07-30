@@ -22,6 +22,8 @@
     <string name="service_post_pies_likes">post_pies_likes</string>
     <string name="service_pies_share">pies_share</string>
     <string name="service_suggestion">suggestion</string>
+    <string name="service_get_profile_by_id">get_profile_by_id</string>
+    \
 
 
 
@@ -72,5 +74,6 @@
     <string name="param_token">token</string>
     <string name="param_parent_id">parent_id</string>
     <string name="param_comment">comment</string>
+    <string name="param_profile_id">profile_id</string>
 
 </resources>
