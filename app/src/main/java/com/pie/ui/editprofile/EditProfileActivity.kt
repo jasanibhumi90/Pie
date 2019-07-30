@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.app.utils.RxBus
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kbeanie.multipicker.api.CameraImagePicker
@@ -22,13 +23,13 @@ import com.pie.model.BaseResponse
 import com.pie.model.LoginModel
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.main.MainActivity
+import com.pie.utils.AppConstant
 import com.pie.utils.AppGlobal
 import com.pie.utils.AppLogger
 import com.pie.utils.PermissionUtils
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_register_profile.*
 import kotlinx.android.synthetic.main.editprofile.*
-import kotlinx.android.synthetic.main.editprofile.ivProPic
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -45,9 +46,9 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
     private var uploadPath: String = ""
     private var vFirstName: String = ""
     private var vLastName: String = ""
+    private var vMobileNo:String=""
     private var vEmail: String = ""
     private var vBio: String = ""
-    private var vBirthdate: String = ""
     private var imagePicker: ImagePicker? = null
     private var cameraPicker: CameraImagePicker? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,16 +56,24 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
         setContentView(R.layout.editprofile)
         pref.getLoginData()?.let {
             if (it.profile_pic.isNotEmpty()) {
-                Glide.with(this).load(it.profile_pic).into(ivProPic)
+                Glide.with(this).load(it.profile_pic).into(ivProPicEdit)
             }
-            etFirstName.setText(it.first_name)
-            etLastName.setText(it.last_name)
-            etEmailAddress.setText(it.email_id)
-            etMobileNo.setText(it.phone_no)
+            vFirstName=it.first_name
+            vMobileNo=it.last_name
+            vEmail=it.email_id
+            vLastName=it.last_name
+            vMobileNo=it.phone_no
+            uploadPath=it.profile_pic
+            vBirthDate=it.birth_date
+            etFirstName.setText(vFirstName)
+            etLastName.setText(vLastName)
+            etEmailAddress.setText(vEmail)
+            etMobileNo.setText(vMobileNo)
         }
         ivBack.setOnClickListener(this)
-        ivProPic.setOnClickListener(this)
+        ivProPicEdit.setOnClickListener(this)
         tvSave.setOnClickListener(this)
+        permissionUtils = PermissionUtils(this)
         //tvDob.setOnClickListener(this)
 
     }
@@ -74,12 +83,10 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
             R.id.ivBack -> {
                 finish()
             }
-
-
             R.id.tvSave -> {
                 editProfile()
             }
-            R.id.ivProPic -> {
+            R.id.ivProPicEdit -> {
                 if (!permissionUtils!!.checkPermission(PermissionUtils.REQUEST_CAMERA_GALLERY_PERMISSION)) {
                     requestPermission()
                 } else {
@@ -168,12 +175,10 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
                     val result = CropImage.getActivityResult(data)
                     if (resultCode == Activity.RESULT_OK) {
                         @Suppress("DEPRECATION")
-                        result.uri.path?.let {
-
-                            pickerPath = it
+                        result.uri.path?.let { pickerPath = it
                             Glide.with(this).load(pickerPath)
                                 .apply(RequestOptions())
-                                .into(ivProPic)
+                                .into(ivProPicEdit)
                             uploadPic(pickerPath)
                         }
                     }
@@ -203,7 +208,6 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
                 }
             }
         }
-
     }
     private fun uploadPic(path: String) {
         if (AppGlobal.isNetworkConnected(this)) run {
@@ -252,28 +256,41 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
         for (file in files) {
             Log.d("tag", "onFilesChosen: $file")
         }
-
-
     }
-
-
-
 
     private fun editProfile() {
         if (AppGlobal.isNetworkConnected(this)) run {
+            if(etFirstName.text.isNotEmpty())
+                vFirstName= etFirstName.text.toString()
+            if(etLastName.text.isNotEmpty())
+                vLastName=etLastName.text.toString()
+            if(vBio.isNotEmpty())
+                vBio=etBio.text.toString()
 
-            var data: HashMap<String, String> = HashMap()
+            val data: HashMap<String, String> = HashMap()
+            val auth = HashMap<String, Any>()
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()
             data[getString(R.string.param_first_name)] = vFirstName
             data[getString(R.string.param_last_name)] = vLastName
-            data[getString(R.string.param_profile_status)] = vBio
+            data[getString(R.string.param_profile_status)] = "I am an andoird developer"
             data[getString(R.string.param_profile_pic)] = uploadPath
             data[getString(R.string.param_birth_date)] = vBirthDate
+            data[getString(R.string.param_country_name)] = "India"
+            data[getString(R.string.param_email_id)]=pref.getLoginData()!!.email_id
+            data[getString(R.string.param_password)]=pref.getLoginData()!!.password
+            data[getString(R.string.param_phone_no)]=pref.getLoginData()!!.phone_no
+            data[getString(R.string.param_country_code)]=pref.getLoginData()!!.country_code
+            data[getString(R.string.param_gender)]=pref.getLoginData()!!.gender
+            data[getString(R.string.param_Things_ids)]="2,4"
+            auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
+            auth[getString(R.string.param_token)] = pref.getToken()
+
 
             request[getString(R.string.data)] = data
-            service[getString(R.string.service)] = getString(R.string.service_signup)
+            service[getString(R.string.service)] = getString(R.string.service_update_profile)
             service[getString(R.string.request)] = request
+            service[getString(R.string.auth)] = auth
             callApi(requestInterface.register(service), true)
                 ?.subscribe({ onRegister(it) }) { onResponseFailure(it, true) }
                 ?.let { mCompositeDisposable.add(it) }
@@ -286,10 +303,15 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
     private fun onRegister(
         resp: BaseResponse<LoginModel>
     ) {
-        if (super.onStatusFalse(resp, true)) return
         resp.data?.let {
+            val bundle = Bundle()
+            bundle.putString(AppConstant.ARG_DETAIL_DELETE,"")
+            RxBus.publish(Bundle(bundle))
             sneakerSuccess(this,resp.message)
             pref.setLoginData(resp.data)
+            setResult(Activity.RESULT_OK)
+            finish()
+
 
         }
     }

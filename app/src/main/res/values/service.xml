@@ -9,6 +9,7 @@
 
     <string name="service_login">login</string>
     <string name="service_signup">signup</string>
+    <string name="service_update_profile">update_profile</string>
     <string name="service_forgot_password">forgot_password</string>
     <string name="service_post_pies">post_pies</string>
     <string name="service_edit_pies">edit_pies</string>
@@ -57,6 +58,7 @@
     <string name="param_user_name">user_name</string>
     <string name="param_profile_pic">profile_pic</string>
     <string name="param_gender">gender</string>
+    <string name="param_Things_ids">things_ids</string>
     <string name="param_birth_date">birth_date</string>
     <string name="param_pies_text">pies_text</string>
     <string name="param_offset">offset</string>

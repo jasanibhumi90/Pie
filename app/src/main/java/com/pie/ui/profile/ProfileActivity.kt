@@ -1,6 +1,8 @@
 package com.pie.ui.profile
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -12,8 +14,10 @@ import com.pie.R
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.editprofile.EditProfileActivity
 import com.pie.ui.pie.PieFragment
+import com.pie.utils.AppConstant.Companion.REQUEST_EDIT_PROFILE
 import kotlinx.android.synthetic.main.activity_profile.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 
 
 class ProfileActivity : BaseActivity(), View.OnClickListener {
@@ -21,19 +25,27 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        pref.getLoginData()?.let {
-            if (it.profile_pic.isNotEmpty()) {
-                Glide.with(this).load(it.profile_pic).into(ivProfile)
-            }
-            tvName.text = (it.first_name + " " + it.last_name)
-            tvUsername.text = (it.user_name)
-        }
+        setData()
         ivBack.setOnClickListener(this)
         tvEditProfile.setOnClickListener(this)
         val adapter = SimpleFragmentPagerAdapter(this, supportFragmentManager)
         pager.setAdapter(adapter)
         tablayout.setupWithViewPager(pager)
         tablayout.setTabGravity(TabLayout.GRAVITY_FILL)
+    }
+
+    private fun setData() {
+        pref.getLoginData()?.let {
+            if (it.profile_pic.isNotEmpty()) {
+                Glide.with(this).load(it.profile_pic).into(ivProfile)
+            }
+            tvName.text = (it.first_name + " " + it.last_name)
+            tvUsername.text = (it.user_name)
+
+            if(it.profile_status.isNotEmpty())
+                tvBio.text=it.profile_status
+            else tvBio.visibility=View.GONE
+        }
     }
 
     override fun onClick(p0: View?) {
@@ -43,7 +55,16 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             }
 
             R.id.tvEditProfile -> {
-                startActivity<EditProfileActivity>()
+                startActivityForResult<EditProfileActivity>(REQUEST_EDIT_PROFILE)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode== REQUEST_EDIT_PROFILE){
+            if(resultCode== Activity.RESULT_OK ){
+                setData()
             }
         }
     }
@@ -55,29 +76,14 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
 
         override fun getItem(position: Int): Fragment {
 
-            return if (position == 0) {
-
-                PieFragment()
-            } else if (position == 1) {
-
-                PieFragment()
-            } else if (position == 2) {
-
-                PieFragment()
-            } /* else if (position == 3) {
-
-                 PieFragment()
-             }else if (position == 4) {
-
-                 PieFragment()
-             }*/ else {
-
-                PieFragment()
+            return when (position) {
+                0 -> PieFragment()
+                1 -> PieFragment()
+                2 -> PieFragment()
+                else -> PieFragment()
             }
-            return PieFragment()
+           //return PieFragment()
         }
-
-        // This determines the number of tabs
 
         override fun getCount(): Int {
 

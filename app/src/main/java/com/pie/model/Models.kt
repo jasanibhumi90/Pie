@@ -28,11 +28,11 @@ data class LoginModel(
     var email_id: String,
     var password: String,
     var mobile_code: String,
-
     var is_verify: String,
     var device_type: String,
     var device_id: String,
-    var is_blocked: String
+    var is_blocked: String,
+    var birth_date: String
 ) : Serializable
 
 
@@ -54,7 +54,7 @@ data class PostModel(
     var view_count: String,
     var shared: String,
     var pies_media_url: ArrayList<String>? = ArrayList(),
-    var comment_list:ArrayList<CommentModel>?= ArrayList(),
+    var comment_list: ArrayList<CommentModel>? = ArrayList(),
     var post_at: String,
     var like_flag: String? = ""
 ) : Serializable, Cloneable {
@@ -138,8 +138,8 @@ data class GetPieView(
     var pies_media_url: ArrayList<String>,
     var post_at: String,
     var like_flag: String? = "",
-    val comment_list: ArrayList<CommentModel>?=ArrayList(),
-    val like_list: ArrayList<LikeModel>?= ArrayList()
+    val comment_list: ArrayList<CommentModel>? = ArrayList(),
+    val like_list: ArrayList<LikeModel>? = ArrayList()
 ) : Serializable
 
 data class SharePost(

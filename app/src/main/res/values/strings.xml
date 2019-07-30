@@ -109,6 +109,8 @@
     <string name="guest">Guest</string>
     <string name="host">Host</string>
     <string name="more">More</string>
+    <style name="pie_mate">Piemates</style>
+
     <!--dashboard-->
     <string name="hello_there">Hello there,</string>
     <string name="welcome_to_pie_me">Welcome to Pie Me</string>
@@ -248,6 +250,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pie_mate">Piemates</string>
 
 
 </resources>

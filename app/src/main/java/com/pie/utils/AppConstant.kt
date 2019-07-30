@@ -30,6 +30,8 @@ class AppConstant {
         const val TIME_APP_TYPE="h:mm a"
         const val SUGGESTION_LIST="SUGGESTION_LIST"
         const val ARG_ISFROM_PIEDETAIL="ARG_ISFROM_PIEDETAIL"
+        const val REQUEST_EDIT_PROFILE=51
+        const val IS_EDIT_PROFILE="edit_profile"
 
 
    
