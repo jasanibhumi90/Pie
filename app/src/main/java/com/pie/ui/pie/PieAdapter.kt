@@ -1,5 +1,6 @@
 package com.pie.ui.pie
 
+import android.graphics.Color
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -7,6 +8,7 @@ import com.pie.R
 import com.pie.model.PostModel
 import com.pie.ui.base.BaseAdapter
 import kotlinx.android.synthetic.main.listitem_home.view.*
+import tcking.github.com.giraffeplayer2.VideoInfo
 
 
 class PieAdapter(
@@ -31,7 +33,8 @@ class PieAdapter(
                 Glide.with(mContext).load(data.profile_pic).load(ivProfile)
             }*/
             //LoadImage(data.profile_pic,ivProfile)
-            Glide.with(mContext).load(data.profile_pic).apply(RequestOptions().placeholder(R.drawable.profile_pic)).into(ivProfile)
+            Glide.with(mContext).load(data.profile_pic)
+                .apply(RequestOptions().placeholder(R.drawable.profile_pic)).into(ivProfile)
             tvUserName.text = (data.first_name + " " + data.last_name)
             tvTime.text = data.post_at
             tvPostDesc.text = data.pies_text
@@ -57,35 +60,35 @@ class PieAdapter(
                         llOne.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![0],ivImage1)
-                     //   Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0], ivImage1)
+                        //   Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                     } else if (data.pies_media_url?.size!! == 2) {
                         llOne.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![0],ivImage1)
-                      //  Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0], ivImage1)
+                        //  Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                         ivImage2.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![1],ivImage2)
-                     //   Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
+                        LoadImage(data.pies_media_url!![1], ivImage2)
+                        //   Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
                     } else if (data.pies_media_url?.size!! == 3) {
                         llOne.visibility = View.VISIBLE
                         llTwo.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![0],ivImage1)
-                       // Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0], ivImage1)
+                        // Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                         ivImage2.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![1],ivImage2)
-                       // Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
+                        LoadImage(data.pies_media_url!![1], ivImage2)
+                        // Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
 
                         ivImage3.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![2],ivImage3)
+                        LoadImage(data.pies_media_url!![2], ivImage3)
                         //Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
 
                     } else if (data.pies_media_url?.size!! == 4) {
@@ -93,71 +96,82 @@ class PieAdapter(
                         llTwo.visibility = View.VISIBLE
 
                         ivImage1.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![0],ivImage1)
-                      //  Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
+                        LoadImage(data.pies_media_url!![0], ivImage1)
+                        //  Glide.with(mContext).load(data.pies_media_url!![0]).into(ivImage1)
 
                         ivImage2.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![1],ivImage2)
-                      //  Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
+                        LoadImage(data.pies_media_url!![1], ivImage2)
+                        //  Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
 
                         ivImage3.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![2],ivImage3)
-                      //  Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
+                        LoadImage(data.pies_media_url!![2], ivImage3)
+                        //  Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
 
 
                         ivImage4.visibility = View.VISIBLE
-                        LoadImage(data.pies_media_url!![3],ivImage4)
+                        LoadImage(data.pies_media_url!![3], ivImage4)
                         //Glide.with(mContext).load(data.pies_media_url!![3]).into(ivImage4)
 
                     }
 
 
-
                 } else {
 
                 }
-            } else if(data.pies_type=="video"){
+            } else if (data.pies_type == "video") {
                 rlView.visibility = View.GONE
                 data.pies_media_url?.let {
                     if (it.size != 0) {
                         rlView.visibility = View.VISIBLE
-                        Glide.with(mContext).load(it[0]).into(ivVideoView)
+
+                        video_view.getVideoInfo().setBgColor(Color.GRAY).setAspectRatio(VideoInfo.AR_MATCH_PARENT);
+                        video_view.setVideoPath(it[0]).setFingerprint(position)
+
+
                     }
                 }
 
-            }else{
+            } else {
                 rlView.visibility = View.GONE
                 llOne.visibility = View.GONE
                 llTwo.visibility = View.GONE
             }
 
 
-        tvLikes.text = data.likes
-        tvComments.text = data.comments
-        tvViews.text = data.view_count
+            tvLikes.text = data.likes
+            tvComments.text = data.comments
+            tvViews.text = data.view_count
 
-        if (data.like_flag == "0")
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.p_heart, 0, 0, 0)
-        else
-            tvLikes.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.p_heart_liked,
-                0,
-                0,
-                0
-            )
-        tvLikes.setOnClickListener(clickListener)
-        tvLikes.tag = position
-        tvLikes.setTag(R.id.TYPE, type)
-        cvPost.setOnClickListener(clickListener)
-        cvPost.tag = position
+            if (data.like_flag == "0")
+                tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.p_heart, 0, 0, 0)
+            else
+                tvLikes.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.p_heart_liked,
+                    0,
+                    0,
+                    0
+                )
+            tvLikes.setOnClickListener(clickListener)
+            tvLikes.tag = position
+            tvLikes.setTag(R.id.TYPE, type)
+            cvPost.setOnClickListener(clickListener)
+            cvPost.tag = position
 
-        ivMenu.setOnClickListener(clickListener)
-        ivMenu.tag = position
+            ivMenu.setOnClickListener(clickListener)
+            ivMenu.tag = position
 
-        tvComments.setOnClickListener(clickListener)
-        tvComments.tag = position
+            tvComments.setOnClickListener(clickListener)
+            tvComments.tag = position
+
+            ivPlay.setOnClickListener {
+                ivPlay.visibility=View.GONE
+                ivPlay.visibility=View.GONE
+                ivPlay.visibility=View.GONE
+                ivPlay.visibility=View.GONE
+                video_view.player.start()
+            }
+        }
     }
-}
 
 }

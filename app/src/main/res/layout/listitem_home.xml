@@ -151,16 +151,14 @@
                         android:layout_height="@dimen/_130sdp"
                         android:visibility="gone"
                         android:id="@+id/rlView">
-            <com.makeramen.roundedimageview.RoundedImageView android:layout_width="match_parent"
-                                                             android:layout_height="@dimen/_130sdp"
-                                                             android:layout_weight="1"
-                                                             android:id="@+id/ivVideoView"
-                                                             android:visibility="visible"
-                                                             app:riv_corner_radius="@dimen/_5sdp"
-                                                             android:layout_marginTop="@dimen/_10sdp"
-                                                             android:layout_marginBottom="@dimen/_10sdp"
-                                                             android:scaleType="centerCrop"/>
-            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <tcking.github.com.giraffeplayer2.VideoView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"/>
+            <ImageView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivPlay"
+                android:visibility="gone"
                        android:layout_centerInParent="true"
                        android:background="@drawable/icon_video_play"/>
         </RelativeLayout>

@@ -209,12 +209,12 @@ class PieFragment : BaseFragment(), View.OnClickListener,CommentsAdapter2.OnItem
                 activity?.startActivity<PieDetailActivity>(AppConstant.ARG_PIE_ID to id.toInt(),ARG_POSITION to p0.tag as Int )
             }
             R.id.rlView -> {
-                val pos=p0.tag as Int
+             /*   val pos=p0.tag as Int
                 if(pieAdapter.getItem(pos).pies_media_url?.size!=0){
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.setDataAndType(Uri.parse(pieAdapter.getItem(pos).pies_media_url!![0]), "video/mp4")
                     startActivity(intent)
-                }
+                }*/
             }
             R.id.tvReportPostSend -> {
                 if (isValid()) {
