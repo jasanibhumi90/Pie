@@ -124,7 +124,6 @@ class PieAdapter(
                 data.pies_media_url?.let {
                     if (it.size != 0) {
                         rlView.visibility = View.VISIBLE
-
                         video_view.setVideoPath(it[0]).setFingerprint(position)
 
 
@@ -179,8 +178,8 @@ class PieAdapter(
 
             ivProfile.setOnClickListener(clickListener)
             ivProfile.tag=position
-        }
-    }
+
+
             tvComments.setOnClickListener(clickListener)
             tvComments.tag = position
 
