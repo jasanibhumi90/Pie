@@ -154,11 +154,7 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
                 } else {
                     sneakerError(this, "you can image or video")
                 }
-
-
             }
-
-
         }
 
     }
@@ -452,8 +448,6 @@ class CreatePieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallb
 
     private fun createPie(pietype:String,imagePaths: String) {
         if (AppGlobal.isNetworkConnected(this)) run {
-
-
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()
             val data = HashMap<String, Any>()

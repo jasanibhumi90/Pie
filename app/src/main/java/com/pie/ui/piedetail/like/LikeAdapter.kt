@@ -26,8 +26,13 @@ class LikeAdapter(
                 .error(resources.getDrawable(R.drawable.profile_pic)).into(ivProfile)
             tvName.text = likemodel.first_name
             tvUserName.text = likemodel.last_name
-            tvFollow.setOnClickListener(clickListener)
-            tvFollow.tag = position
+            if(likemodel.followstatus=="0"){
+                tvFollow.visibility=View.VISIBLE
+                tvFollow.setOnClickListener(clickListener)
+                tvFollow.tag = position
+            }
+
+
         }
     }
 

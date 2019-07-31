@@ -120,6 +120,9 @@ class CommentsAdapter2(val context: Context, parentList: List<CommentModel>) :
                 tvUserNameReply.text = commentReply.first_name
                 tvCommentsReply.text = commentReply.comment
                 tvTimeReply.text = commentReply.post_at
+                llReplyOfReply.setOnClickListener {
+                    mOnItemViewClickListener?.onItemViewClick(it, parentAdapterPosition, childAdapterPosition)
+                }
              //   subComment.text=resources.getString(R.string.view_reply,parentAdapterPosition)
             }
         }

@@ -44,9 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:contentDescription="@string/content_desc"
-                android:padding="@dimen/_8sdp"
+                android:padding="@dimen/_5sdp"
                 android:rotation="90"
                 android:src="@drawable/arrow_right"
                 android:tint="@color/colorArrow" />

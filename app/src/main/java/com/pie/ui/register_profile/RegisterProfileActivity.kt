@@ -299,8 +299,6 @@ class RegisterProfileActivity : BaseActivity(), View.OnClickListener, ImagePicke
 
     private fun registerApi() {
         if (AppGlobal.isNetworkConnected(this)) run {
-
-
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()
             data[getString(R.string.param_user_name)] = vUserName

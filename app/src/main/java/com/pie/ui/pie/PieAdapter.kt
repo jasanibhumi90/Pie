@@ -125,7 +125,6 @@ class PieAdapter(
                     if (it.size != 0) {
                         rlView.visibility = View.VISIBLE
 
-                        video_view.getVideoInfo().setBgColor(Color.GRAY).setAspectRatio(VideoInfo.AR_MATCH_PARENT);
                         video_view.setVideoPath(it[0]).setFingerprint(position)
 
 
@@ -144,6 +143,20 @@ class PieAdapter(
             tvViews.text = data.view_count
 
             if (data.like_flag == "0")
+                ivLike.setImageDrawable(resources.getDrawable( R.drawable.p_heart))
+            else
+                ivLike.setImageDrawable(resources.getDrawable( R.drawable.p_heart_liked))
+
+            ivLike.setOnClickListener(clickListener)
+            ivLike.tag = position
+            ivLike.setTag(R.id.TYPE, type)
+
+            tvLikes.setOnClickListener(clickListener)
+            tvLikes.tag = position
+
+            cvPost.setOnClickListener(clickListener)
+            cvPost.tag = position
+            if (data.like_flag == "0")
                 tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.p_heart, 0, 0, 0)
             else
                 tvLikes.setCompoundDrawablesWithIntrinsicBounds(
@@ -161,6 +174,13 @@ class PieAdapter(
             ivMenu.setOnClickListener(clickListener)
             ivMenu.tag = position
 
+            tvComments.setOnClickListener(clickListener)
+            tvComments.tag = position
+
+            ivProfile.setOnClickListener(clickListener)
+            ivProfile.tag=position
+        }
+    }
             tvComments.setOnClickListener(clickListener)
             tvComments.tag = position
 

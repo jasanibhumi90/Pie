@@ -538,7 +538,6 @@ class EditPieActivity : BaseActivity(), View.OnClickListener, ImagePickerCallbac
         sneakerError(this,getString(R.string.update_pie))
         if(intent.hasExtra(ARG_ISFROM_PIEDETAIL)) {
             startActivity(intentFor<MainActivity>().clearTop())
-
         }else {
             val data = Intent()
             data.putExtra(ARG_DATA, resp.data)
