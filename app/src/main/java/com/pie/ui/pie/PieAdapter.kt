@@ -158,6 +158,9 @@ class PieAdapter(
 
             tvComments.setOnClickListener(clickListener)
             tvComments.tag = position
+
+            ivProfile.setOnClickListener(clickListener)
+            ivProfile.tag=position
         }
     }
 

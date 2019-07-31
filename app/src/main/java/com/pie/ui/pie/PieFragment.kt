@@ -28,6 +28,7 @@ import com.pie.ui.editpie.EditPieActivity
 import com.pie.ui.home.comment.CommentsAdapter2
 import com.pie.ui.piedetail.PieDetailActivity
 import com.pie.ui.piedetail.like.LikeAdapter
+import com.pie.ui.profile.ProfileActivity
 import com.pie.utils.*
 import com.pie.utils.AppConstant.Companion.ARG_DATA
 import com.pie.utils.AppConstant.Companion.ARG_DETAIL_COMMENT
@@ -36,6 +37,7 @@ import com.pie.utils.AppConstant.Companion.ARG_DETAIL_LIKE
 import com.pie.utils.AppConstant.Companion.ARG_DETAIL_UPDATE
 import com.pie.utils.AppConstant.Companion.ARG_ISLIKE
 import com.pie.utils.AppConstant.Companion.ARG_PIE_DATA
+import com.pie.utils.AppConstant.Companion.ARG_PIE_PROFILE_ID
 import com.pie.utils.AppConstant.Companion.ARG_POSITION
 import com.pie.utils.AppConstant.Companion.TYPE_LIKE_POST
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,6 +48,7 @@ import kotlinx.android.synthetic.main.dialog_like.*
 import kotlinx.android.synthetic.main.dialog_reportpost.*
 import kotlinx.android.synthetic.main.flow_report.view.*
 import kotlinx.android.synthetic.main.fragment_pie.*
+import kotlinx.android.synthetic.main.listitem_home.view.*
 import org.apmem.tools.layouts.FlowLayout
 import org.jetbrains.anko.startActivity
 import java.util.HashMap
@@ -108,11 +111,9 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         arguments?.let {
             arguments?.getSerializable(ARG_PIE_DATA)
             setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
-            }?:run {
+        } ?: run {
             getPies(true)
         }
-
-
 
     }
 
@@ -140,14 +141,12 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
     }
 
     override fun onLoadMore() {
-        pageNo = pageNo + 1
+        pageNo += 1
         arguments?.let {
             setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
-        }?:kotlin.run {
+        } ?: kotlin.run {
             getPies(false)
         }
-
-
     }
 
     private fun isValid(): Boolean {
@@ -289,6 +288,11 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             }
             R.id.ivDilogCloseLike -> {
                 likeDialog.dismiss()
+            }
+            R.id.ivProfile -> {
+                val pos = p0.tag as Int
+                activity!!.startActivity<ProfileActivity>(ARG_PIE_PROFILE_ID to pieAdapter.getItem(pos).user_id)
+
             }
         }
     }
@@ -715,21 +719,21 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     private fun setPieListWithPagination(list: ArrayList<PostModel>) {
         pagination.setItemLoaded()
-            if (list.size != 0) {
-                pagination.setItemLoaded()
-                if (list.size < 10) {
-                    pagination.setLoadMore(false)
-                }
-                if (pageNo == 0) {
-                    pieAdapter.addAll(list)
-                    if(list.size>0)
-                    Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
-                } else {
-                    pieAdapter.appendAll(list)
-                }
-            } else {
-
+        if (list.size != 0) {
+            pagination.setItemLoaded()
+            if (list.size < 10) {
+                pagination.setLoadMore(false)
             }
+            if (pageNo == 0) {
+                pieAdapter.addAll(list)
+                if (list.size > 0)
+                    Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
+            } else {
+                pieAdapter.appendAll(list)
+            }
+        } else {
+
+        }
     }
 
     private fun deletePie(position: Int) {

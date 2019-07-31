@@ -46,7 +46,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     private fun setData() {
         pref.getLoginData()?.let {
-            if(it.profile_pic.isEmpty())
+            if(it.profile_pic.isNotEmpty())
                 Glide.with(this).load(it.profile_pic).error(R.drawable.profile_pic).into(toolbar.ivProfile)
             else toolbar.ivProfile.setImageDrawable(resources.getDrawable(R.drawable.profile_pic))
         }
