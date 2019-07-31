@@ -124,6 +124,7 @@ class PieAdapter(
                 data.pies_media_url?.let {
                     if (it.size != 0) {
                         rlView.visibility = View.VISIBLE
+                        Glide.with(mContext).load(it[0]).into(video_view.coverView)
                         video_view.setVideoPath(it[0]).setFingerprint(position)
 
 
