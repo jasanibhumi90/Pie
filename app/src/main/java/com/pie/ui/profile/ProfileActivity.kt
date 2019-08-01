@@ -68,8 +68,6 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         callApi(requestInterface.getProfile(service), true)
             ?.subscribe({ onPeofileResponse(it,profileId) }) { onResponseFailure(it, true) }
             ?.let { mCompositeDisposable.add(it) }
-
-
     }
 
     private fun onPeofileResponse(resp: BaseResponse<Profile>,profileId:String) {
