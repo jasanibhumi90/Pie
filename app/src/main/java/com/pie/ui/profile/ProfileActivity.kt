@@ -12,15 +12,20 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.pie.R
 import com.pie.model.BaseResponse
+import com.pie.model.Piemate
 import com.pie.model.PostModel
 import com.pie.model.Profile
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.editprofile.EditProfileActivity
 import com.pie.ui.pie.PieFragment
+import com.pie.ui.profile.piemate.MyPiematesActivity
 import com.pie.utils.AppConstant.Companion.ARG_PIE_DATA
+import com.pie.utils.AppConstant.Companion.ARG_PIE_MATE_LIST
 import com.pie.utils.AppConstant.Companion.ARG_PIE_PROFILE_ID
 import com.pie.utils.AppConstant.Companion.REQUEST_EDIT_PROFILE
+import com.pie.utils.AppLogger
 import kotlinx.android.synthetic.main.activity_profile.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 
 class ProfileActivity : BaseActivity(), View.OnClickListener {
@@ -32,10 +37,9 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         if(intent.hasExtra(ARG_PIE_PROFILE_ID)) {
             init(intent.getStringExtra(ARG_PIE_PROFILE_ID))
             clickListener()
+            if(intent.getStringExtra(ARG_PIE_PROFILE_ID)!=pref.getLoginData()!!.user_id)
+                tvEditProfile.visibility=View.GONE
             // setData()
-            ivBack.setOnClickListener(this)
-            tvEditProfile.setOnClickListener(this)
-
         }
     }
 
@@ -44,6 +48,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         pager.adapter = adapter
         tablayout.setupWithViewPager(pager)
         tablayout.tabGravity = TabLayout.GRAVITY_FILL
+        llprofile.visibility=View.VISIBLE
+
     }
     private fun init(profileId: String) {
         val request = HashMap<String, Any>()
@@ -60,16 +66,16 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         service[getString(R.string.request)] = request
         service[getString(R.string.auth)] = auth
         callApi(requestInterface.getProfile(service), true)
-            ?.subscribe({ onPeofileResponse(it) }) { onResponseFailure(it, true) }
+            ?.subscribe({ onPeofileResponse(it,profileId) }) { onResponseFailure(it, true) }
             ?.let { mCompositeDisposable.add(it) }
 
 
     }
 
-    private fun onPeofileResponse(resp: BaseResponse<Profile>) {
+    private fun onPeofileResponse(resp: BaseResponse<Profile>,profileId:String) {
         if(super.onStatusFalse(resp,true))return
         resp.data?.let {
-            tvName.text=it.user_name
+            tvName.text=it.first_name+" "+it.last_name
             tvUsername.text=it.user_name
             if(it.profile_pic.isNotEmpty())
                 setImage(ivProfile,it.profile_pic)
@@ -82,14 +88,16 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                     setPagerAdapter()
                 }
             }
-
+            llPiemate.tag=it.piemate
         }
 
 
     }
 
     private fun clickListener(){
-
+        ivBack.setOnClickListener(this)
+        tvEditProfile.setOnClickListener(this)
+        llPiemate.setOnClickListener(this)
     }
     private fun setData() {
         pref.getLoginData()?.let {
@@ -113,6 +121,12 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             R.id.tvEditProfile -> {
                 startActivityForResult<EditProfileActivity>(REQUEST_EDIT_PROFILE)
             }
+            R.id.llPiemate->{
+                val list=p0.tag as ArrayList<Piemate>
+                AppLogger.e("tag","data.."+gson.toJson(list).toString())
+                startActivity<MyPiematesActivity>(ARG_PIE_MATE_LIST to list)
+            }
+
         }
     }
 
@@ -146,14 +160,13 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         override fun getPageTitle(position: Int): CharSequence? {
             when (position) {
                 0 -> return mContext.getString(R.string.pies)
-                1 -> return mContext.getString(R.string.chats)
-                2 -> return mContext.getString(R.string.guest)
+                1 -> return mContext.getString(R.string.meal)
+                2 -> return mContext.getString(R.string.events)
                 else -> return null
             }
         }
     }
     fun newInstance(): PieFragment {
-
         val frag = PieFragment()
         val args = Bundle()
         args.putSerializable(ARG_PIE_DATA, pieList)

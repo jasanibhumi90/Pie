@@ -165,6 +165,7 @@ data class LikeModel(
     var profile_pic: String? = "",
     var first_name: String? = "",
     var last_name: String? = "",
+    var user_name: String?="",
     var creation_datetime: String? = "",
     var followstatus: String? = "0",
     var post_at: String? = ""

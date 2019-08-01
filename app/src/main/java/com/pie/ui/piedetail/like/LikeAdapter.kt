@@ -24,8 +24,8 @@ class LikeAdapter(
 
             Glide.with(mContext).load(likemodel.profile_pic)
                 .error(resources.getDrawable(R.drawable.profile_pic)).into(ivProfile)
-            tvName.text = likemodel.first_name
-            tvUserName.text = likemodel.last_name
+            tvName.text = resources.getString(R.string.full_name,likemodel.first_name,likemodel.last_name)
+            tvUserName.text = likemodel.user_name
             if(likemodel.followstatus=="0"){
                 tvFollow.visibility=View.VISIBLE
                 tvFollow.setOnClickListener(clickListener)

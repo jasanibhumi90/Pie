@@ -26,6 +26,7 @@
     <color name="edbg">#8007335b</color>
     <color name="hint_color">#80ffffff</color>
     <color name="tab_text">#A9BCCA</color>
+    <color name="color_view">#7AB4DF</color>
     <color name="colorBg">#EEF3F7</color>
     <color name="colorDisabled">#DAE3EA</color>
     <color name="colorGrey700">#616161</color>

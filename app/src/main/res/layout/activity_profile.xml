@@ -23,11 +23,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/llprofile"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:paddingStart="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_5sdp"
         android:paddingEnd="@dimen/_10sdp">
 
         <LinearLayout
@@ -37,8 +44,8 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivProfile"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile_pic"
                 app:riv_border_color="@color/colorWhite"
@@ -68,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="harna@mak123"
+                    android:layout_marginTop="-4dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_12sdp" />
 
@@ -76,12 +84,11 @@
                     style="@style/styleTextMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_btn_white_thirty"
-                    android:paddingStart="@dimen/_20sdp"
-                    android:paddingTop="@dimen/_7sdp"
-                    android:paddingEnd="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_7sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_5sdp"
                     android:text="@string/editprofile"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_12sdp" />
@@ -103,11 +110,123 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/tab_text" />
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/color_view" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="222"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite"
+                style="@style/styleTextSemiBold"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvPiemates"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/tvPies"/>
+
+            <TextView
+                style="@style/styleTextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pies"
+                android:id="@+id/pie"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="-8dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="@id/tvPies"
+                app:layout_constraintEnd_toEndOf="@id/tvPies"
+                app:layout_constraintTop_toBottomOf="@id/tvPies" />
+        </LinearLayout>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_view"
+           />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:id="@+id/llPiemate"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1021"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/colorWhite"
+                style="@style/styleTextSemiBold"
+                android:id="@+id/tvPiemates"/>
+            <TextView
+                style="@style/styleTextRegular"
+                android:layout_width="wrap_content"
+                android:text="@string/pie_mate"
+                android:textSize="@dimen/_12sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-8dp"
+                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_view"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            <TextView
+                android:id="@+id/tvMeals"
+                style="@style/styleTextSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="28"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPiemates"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                style="@style/styleTextRegular"
+                app:layout_constraintStart_toStartOf="@id/tvMeals"
+                app:layout_constraintEnd_toEndOf="@id/tvMeals"
+                app:layout_constraintTop_toBottomOf="@id/tvMeals"
+                android:layout_width="wrap_content"
+                android:text="@string/meals"
+                android:layout_gravity="center"
+                android:layout_marginTop="-8dp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_5sdp"
+            android:visibility="gone"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="0dp"
@@ -188,7 +307,7 @@
                 android:textSize="@dimen/_14sdp"
                 android:textColor="@color/colorWhite"
                 android:layout_height="wrap_content" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </LinearLayout>
 
@@ -210,7 +329,8 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent">
 
     </androidx.viewpager.widget.ViewPager>
+    </LinearLayout>
 </LinearLayout>

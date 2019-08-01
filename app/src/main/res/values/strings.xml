@@ -109,6 +109,7 @@
     <string name="guest">Guest</string>
     <string name="host">Host</string>
     <string name="more">More</string>
+
     <style name="pie_mate">Piemates</style>
 
     <!--dashboard-->
@@ -191,6 +192,8 @@
     <string name="editprofile">Edit Profile</string>
     <string name="piemates">Piemates</string>
     <string name="meals">Meals / Events</string>
+    <string name="events">Events</string>
+    <string name="meal">Meals</string>
 
     <!--create pie-->
     <string name="create_or_pie_something">write or pie something....</string>
@@ -251,6 +254,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pie_mate">Piemates</string>
+
+    <string name="nopiemate">No piemates yet!</string>
+    <string name="piemates_title">My Piemates</string>
+    <string name="full_name">%1$s %2$s</string>
+    <string name="mypiemates">My Piemates</string>
 
 
 </resources>
