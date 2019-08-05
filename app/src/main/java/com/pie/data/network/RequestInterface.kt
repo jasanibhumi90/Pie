@@ -48,7 +48,6 @@ interface RequestInterface {
     @POST("WebService/service")
     fun getPies(@Body map: HashMap<String, Any>): Observable<BaseResponse<ArrayList<PostModel>>>
 
-
     @POST("WebService/service")
     fun getReportss(@Body map: HashMap<String, Any>): Observable<BaseResponse<ArrayList<ReportModel>>>
 
@@ -78,6 +77,16 @@ interface RequestInterface {
 
     @POST("WebService/service")
     fun getProfile(@Body map: HashMap<String, Any> ): Observable<BaseResponse<Profile>>
+
+    @POST("WebService/service")
+    fun followPie(@Body map: HashMap<String, Any>):Observable<FollowResponse>
+
+    @POST("WebService/service")
+    fun blockUser(@Body map:HashMap<String,Any>):Observable<BaseResponse<Any>>
+
+
+
+
 
 
 

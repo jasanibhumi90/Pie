@@ -90,6 +90,10 @@ abstract class BaseAdapter<T>(val layout: Int = 0) : RecyclerView.Adapter<BaseAd
         notifyDataSetChanged()
     }
 
+    fun removePie(userId:Int){
+
+    }
+
 
     fun updateItem(position: Int, item: T) {
         list[position] = item

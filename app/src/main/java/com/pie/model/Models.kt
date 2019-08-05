@@ -11,6 +11,13 @@ data class BaseResponse<T>(
     val data: T? = null
 ) : Serializable
 
+data class FollowResponse(
+    var message: String,
+    var success: Int,
+    var followstatus:String
+)
+
+
 
 data class LoginModel(
     var user_id: String,
@@ -56,7 +63,8 @@ data class PostModel(
     var pies_media_url: ArrayList<String>? = ArrayList(),
     var comment_list: ArrayList<CommentModel>? = ArrayList(),
     var post_at: String,
-    var like_flag: String? = ""
+    var like_flag: String? = "",
+    val followstatus:String="1"
 ) : Serializable, Cloneable {
     public override fun clone(): PostModel {
         return super.clone() as PostModel
@@ -135,6 +143,7 @@ data class GetPieView(
     var comments: String,
     var view_count: String,
     var shared: String,
+    var pies_type: String,
     var pies_media_url: ArrayList<String>,
     var post_at: String,
     var like_flag: String? = "",
@@ -202,16 +211,18 @@ data class Profile(
     var piemate:ArrayList<Piemate>?=ArrayList(),
     var countpiemate:String,
     var mealsorevent:String,
+    var followstatus: String,
     val pie_list:ArrayList<PostModel>?=ArrayList()
 ):Serializable
 
 data class Piemate(
+    var user_id:String,
     var profile_pic:String,
     var first_name:String,
     var last_name:String,
     var user_name:String,
     var creation_datetime:String,
-    val followstatus:String,
+    var followstatus:String,
     val post_at:String
 ):Serializable
 
@@ -221,3 +232,4 @@ data class Suggestion(
     val user_name: String? = "",
     val profile_pic: String? = ""
 ) : Serializable
+

@@ -125,9 +125,9 @@
                     android:id="@+id/llOne"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_120sdp"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/_9sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
 
                     <com.makeramen.roundedimageview.RoundedImageView
@@ -152,14 +152,31 @@
                         app:riv_corner_radius="@dimen/_5sdp" />
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_130sdp"
+                    android:visibility="gone"
+                    android:id="@+id/rlView">
+                    <tcking.github.com.giraffeplayer2.VideoView
+                        android:id="@+id/video_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_130sdp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ivPlay"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/icon_video_play"/>
+                </RelativeLayout>
                 <LinearLayout
                     android:id="@+id/llTwo"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_120sdp"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:orientation="horizontal"
                     android:layout_marginStart="@dimen/_9sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
+                    android:orientation="horizontal"
                     android:visibility="gone">
 
                     <com.makeramen.roundedimageview.RoundedImageView
@@ -189,11 +206,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_9sdp"
                     android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_9sdp"
                     android:layout_marginBottom="@dimen/_2sdp"
                     android:gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_9sdp"
-                    android:layout_marginEnd="@dimen/_9sdp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -238,10 +255,10 @@
                     android:id="@+id/llLikeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:layout_marginBottom="@dimen/_3sdp"
                     android:layout_marginStart="@dimen/_9sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -282,9 +299,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_8sdp"
                     android:layout_marginStart="@dimen/_9sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
+                    android:paddingTop="@dimen/_8sdp"
                     android:paddingBottom="@dimen/_8sdp">
 
                     <TextView
@@ -347,9 +364,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/_9sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:visibility="gone">
 
@@ -399,8 +416,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_9sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
                     android:orientation="vertical"
                     android:visibility="gone"
@@ -438,7 +455,6 @@
     </androidx.core.widget.NestedScrollView>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/llBottom"
         android:layout_width="match_parent"
@@ -454,9 +470,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_darkblue"
             android:paddingTop="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
             android:paddingBottom="@dimen/_5sdp"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tvReplyLbl"
@@ -478,39 +494,39 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.4"
-            android:id="@+id/view"
-            app:layout_constraintTop_toBottomOf="@+id/llReplyLbl"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/colorNoComments"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/colorNoComments" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llReplyLbl" />
 
         <EditText
             android:id="@+id/edReplyComment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="@string/writecomments"
-            android:inputType="text"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_7sdp"
             android:layout_marginBottom="@dimen/_7sdp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:gravity="center_vertical"
+            android:hint="@string/writecomments"
+            android:inputType="text"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvSend"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:singleLine="false"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorGrey"
             android:textSize="@dimen/_13sdp"
-            android:theme="@style/styleTextMedium" />
+            android:theme="@style/styleTextMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <TextView
             android:id="@+id/tvSend"
@@ -518,6 +534,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginTop="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
             android:layout_marginBottom="@dimen/_7sdp"
             android:background="@drawable/bg_btn_round_darkblue"
             android:gravity="center_vertical|center_horizontal"
@@ -526,7 +543,6 @@
             android:paddingRight="@dimen/_18sdp"
             android:paddingBottom="@dimen/_8sdp"
             android:text="@string/send"
-            android:layout_marginEnd="@dimen/_7sdp"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13sdp"
             android:theme="@style/styleTextMedium"
@@ -535,7 +551,6 @@
             app:layout_constraintTop_toTopOf="@+id/edReplyComment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

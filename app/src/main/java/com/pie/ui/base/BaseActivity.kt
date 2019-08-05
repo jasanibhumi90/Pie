@@ -30,6 +30,7 @@ import com.pie.utils.PermissionUtils
 import com.google.gson.Gson
 import com.irozon.sneaker.Sneaker
 import com.makeramen.roundedimageview.RoundedImageView
+import com.pie.model.FollowResponse
 import com.wang.avi.AVLoadingIndicatorView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -202,6 +203,22 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun <T> onStatusFalse(t: BaseResponse<T>, vararg doSawLoader: Boolean): Boolean {
+        if (doSawLoader.isNotEmpty() && doSawLoader[0]) {
+            noOfApiCall--
+            if (noOfApiCall <= 0) {
+                noOfApiCall = 0
+                hideLoader()
+            }
+        }
+        if (t.success==0) {
+            AppGlobal.alertDialog(this, t.message)
+            return (t.success==0)
+        }
+
+        return false
+    }
+
+    protected fun  onStatusFalseFollow(t: FollowResponse, vararg doSawLoader: Boolean): Boolean {
         if (doSawLoader.isNotEmpty() && doSawLoader[0]) {
             noOfApiCall--
             if (noOfApiCall <= 0) {

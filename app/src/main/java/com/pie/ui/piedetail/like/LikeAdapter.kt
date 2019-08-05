@@ -27,12 +27,20 @@ class LikeAdapter(
             tvName.text = resources.getString(R.string.full_name,likemodel.first_name,likemodel.last_name)
             tvUserName.text = likemodel.user_name
             if(likemodel.followstatus=="0"){
+                tvFollow.text=resources.getString(R.string.follow)
                 tvFollow.visibility=View.VISIBLE
-                tvFollow.setOnClickListener(clickListener)
-                tvFollow.tag = position
+            }else if(likemodel.followstatus=="1"){
+                tvFollow.text=resources.getString(R.string.following)
+                tvFollow.visibility=View.VISIBLE
+            }else if(likemodel.followstatus=="2"){
+                tvFollow.text=resources.getString(R.string.piemate)
+                tvFollow.background=mContext.resources.getDrawable(R.drawable.bg_btn_blue)
+                tvFollow.visibility=View.VISIBLE
+            }else{
+                tvFollow.visibility=View.VISIBLE
             }
-
-
+            tvFollow.setOnClickListener(clickListener)
+            tvFollow.tag = position
         }
     }
 

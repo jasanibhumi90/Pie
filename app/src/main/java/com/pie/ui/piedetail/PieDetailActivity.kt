@@ -18,6 +18,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.utils.RxBus
+import com.bumptech.glide.Glide
 import com.pie.PieApp
 import com.pie.R
 import com.pie.model.*
@@ -158,39 +159,60 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
             llTwo.visibility = View.GONE
             ivImage3.visibility = View.GONE
             ivImage4.visibility = View.GONE
-            if (!it.pies_media_url.isNullOrEmpty() && it.pies_media_url.size > 0) {
-                if (it.pies_media_url.size == 1) {
-                    llOne.visibility = View.VISIBLE
-                    ivImage1.visibility = View.VISIBLE
-                    setImage(ivImage1, it.pies_media_url[0])
-                } else if (it.pies_media_url.size == 2) {
-                    llOne.visibility = View.VISIBLE
-                    ivImage1.visibility = View.VISIBLE
-                    setImage(ivImage1, it.pies_media_url[0])
-                    ivImage2.visibility = View.VISIBLE
-                    setImage(ivImage2, it.pies_media_url[1])
-                } else if (it.pies_media_url.size == 3) {
-                    llOne.visibility = View.VISIBLE
-                    llTwo.visibility = View.VISIBLE
-                    ivImage1.visibility = View.VISIBLE
-                    setImage(ivImage1, it.pies_media_url[0])
-                    ivImage2.visibility = View.VISIBLE
-                    setImage(ivImage2, it.pies_media_url[1])
-                    ivImage3.visibility = View.VISIBLE
-                    setImage(ivImage3, it.pies_media_url[2])
-                } else if (it.pies_media_url.size == 4) {
-                    llOne.visibility = View.VISIBLE
-                    llTwo.visibility = View.VISIBLE
 
-                    ivImage1.visibility = View.VISIBLE
-                    setImage(ivImage1, it.pies_media_url[0])
-                    ivImage2.visibility = View.VISIBLE
-                    setImage(ivImage2, it.pies_media_url[1])
-                    ivImage3.visibility = View.VISIBLE
-                    setImage(ivImage3, it.pies_media_url[2])
-                    ivImage4.visibility = View.VISIBLE
-                    setImage(ivImage4, it.pies_media_url[3])
+            if (it.pies_type == "image") {
+                rlView.visibility = View.GONE
+                if (!it.pies_media_url.isNullOrEmpty() && it.pies_media_url.size > 0) {
+                    if (it.pies_media_url.size == 1) {
+                        llOne.visibility = View.VISIBLE
+                        ivImage1.visibility = View.VISIBLE
+                        setImage(ivImage1, it.pies_media_url[0])
+                    } else if (it.pies_media_url.size == 2) {
+                        llOne.visibility = View.VISIBLE
+                        ivImage1.visibility = View.VISIBLE
+                        setImage(ivImage1, it.pies_media_url[0])
+                        ivImage2.visibility = View.VISIBLE
+                        setImage(ivImage2, it.pies_media_url[1])
+                    } else if (it.pies_media_url.size == 3) {
+                        llOne.visibility = View.VISIBLE
+                        llTwo.visibility = View.VISIBLE
+                        ivImage1.visibility = View.VISIBLE
+                        setImage(ivImage1, it.pies_media_url[0])
+                        ivImage2.visibility = View.VISIBLE
+                        setImage(ivImage2, it.pies_media_url[1])
+                        ivImage3.visibility = View.VISIBLE
+                        setImage(ivImage3, it.pies_media_url[2])
+                    } else if (it.pies_media_url.size == 4) {
+                        llOne.visibility = View.VISIBLE
+                        llTwo.visibility = View.VISIBLE
+
+                        ivImage1.visibility = View.VISIBLE
+                        setImage(ivImage1, it.pies_media_url[0])
+                        ivImage2.visibility = View.VISIBLE
+                        setImage(ivImage2, it.pies_media_url[1])
+                        ivImage3.visibility = View.VISIBLE
+                        setImage(ivImage3, it.pies_media_url[2])
+                        ivImage4.visibility = View.VISIBLE
+                        setImage(ivImage4, it.pies_media_url[3])
+                    }
                 }
+            }else if (it.pies_type == "video") {
+                rlView.visibility = View.GONE
+                it.pies_media_url?.let {
+                    if (it.size != 0) {
+                        rlView.visibility = View.VISIBLE
+                        Glide.with(this).load(it[0]).into(video_view.coverView)
+                        video_view.setVideoPath(it[0]).setFingerprint(position)
+                    }
+                }
+            } else {
+                rlView.visibility = View.GONE
+                llOne.visibility = View.GONE
+                llTwo.visibility = View.GONE
+            }
+            ivPlay.setOnClickListener {
+                ivPlay.visibility=View.GONE
+                video_view.player.start()
             }
             tvTotalLike.text = it.likes
             tvLikes.tag = it.like_flag

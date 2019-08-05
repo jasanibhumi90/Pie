@@ -23,6 +23,9 @@
     <string name="service_pies_share">pies_share</string>
     <string name="service_suggestion">suggestion</string>
     <string name="service_get_profile_by_id">get_profile_by_id</string>
+    <string name="service_pies_follow">pies_follow</string>
+    <string name="service_pies_user_block">pies_user_block</string>
+
     \
 
 
@@ -75,5 +78,6 @@
     <string name="param_parent_id">parent_id</string>
     <string name="param_comment">comment</string>
     <string name="param_profile_id">profile_id</string>
+    <string name="param_follow_id">follow_id</string>
 
 </resources>

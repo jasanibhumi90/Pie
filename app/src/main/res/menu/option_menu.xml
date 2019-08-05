@@ -2,12 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/menu1"
-            android:title="Edit" />
+            android:title="@string/edit" />
     <item
         android:id="@+id/menu2"
-        android:title="delete" />
+        android:title="@string/delete_pie" />
     <item
             android:id="@+id/sharePost"
-            android:title="share this post" />
+            android:title="@string/share_this_post" />
+
+    <item
+        android:id="@+id/unfollow"
+        android:title="@string/unfollow" />
+    <item
+        android:id="@+id/block"
+        android:title="@string/block" />
+
 
 </menu>

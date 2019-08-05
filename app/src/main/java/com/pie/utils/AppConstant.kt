@@ -34,6 +34,7 @@ class AppConstant {
         const val IS_EDIT_PROFILE="edit_profile"
         const val ARG_PIE_PROFILE_ID="pie_profile_id"
         const val ARG_PIE_MATE_LIST="piemates_list"
+        const val ARG_PIEMATE="pie_mate"
 
 
    

@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.main.dialog_like.*
 import kotlinx.android.synthetic.main.dialog_reportpost.*
 import kotlinx.android.synthetic.main.flow_report.view.*
 import kotlinx.android.synthetic.main.fragment_pie.*
+import kotlinx.android.synthetic.main.like_row_layout.view.*
 import kotlinx.android.synthetic.main.listitem_home.view.*
 import org.apmem.tools.layouts.FlowLayout
 import org.jetbrains.anko.startActivity
@@ -109,6 +110,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
         init()
         arguments?.let {
+            AppLogger.e("tag","data....")
             arguments?.getSerializable(ARG_PIE_DATA)
             setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
         } ?: run {
@@ -291,8 +293,55 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             }
             R.id.ivProfile -> {
                 val pos = p0.tag as Int
-                activity!!.startActivity<ProfileActivity>(ARG_PIE_PROFILE_ID to pieAdapter.getItem(pos).user_id)
+                activity!!.startActivity<ProfileActivity>(
+                    ARG_PIE_PROFILE_ID to pieAdapter.getItem(
+                        pos
+                    ).user_id
+                )
 
+            }
+            R.id.tvFollow -> {
+                val pos = p0.tag as Int
+                followUser(pos, false)
+            }
+        }
+    }
+
+    private fun followUser(pos: Int, isUpadteList: Boolean) {
+        val request = HashMap<String, Any>()
+        val service = HashMap<String, Any>()
+        val data = HashMap<String, Any>()
+        val auth = HashMap<String, Any>()
+        data[getString(R.string.param_follow_id)] =
+            if (isUpadteList) pieAdapter.getItem(pos).user_id else likeAdapter.getItem(pos).user_id!!
+        auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
+        auth[getString(R.string.param_token)] = pref.getToken()
+        request[getString(R.string.data)] = data
+        service[getString(R.string.service)] = getString(R.string.service_pies_follow)
+        service[getString(R.string.request)] = request
+        service[getString(R.string.auth)] = auth
+        callApi(requestInterface.followPie(service), true)
+            ?.subscribe({
+                onFollowUser(it, pos, isUpadteList)
+            }) {
+                onResponseFailure(it, true)
+            }
+            ?.let { mCompositeDisposable.add(it) }
+
+    }
+
+    private fun onFollowUser(resp: FollowResponse, pos: Int, isUpadteList: Boolean) {
+        if (super.onStatusFalse(resp, true)) return
+
+        if (isUpadteList) {
+            val list = pieAdapter.getAll().filter { it.user_id == pieAdapter.getItem(pos).user_id }
+            pieAdapter.getAll().removeAll(list)
+            pieAdapter.notifyDataSetChanged()
+        } else {
+            if (::likeAdapter.isInitialized){
+            val data = likeAdapter.getItem(pos)
+            data.followstatus = resp.followstatus
+            likeAdapter.updateItem(pos, data)
             }
         }
     }
@@ -354,6 +403,9 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             popup.menu.findItem(R.id.sharePost).isVisible = false
             popup.menu.findItem(R.id.menu1).title = resources.getString(R.string.menu_editpost)
             popup.menu.findItem(R.id.menu2).title = resources.getString(R.string.menu_deletepost)
+            popup.menu.findItem(R.id.block).isVisible=false
+            popup.menu.findItem(R.id.unfollow).isVisible=false
+
         } else {
             popup.menu.findItem(R.id.menu1).isVisible = false
             popup.menu.findItem(R.id.sharePost).isVisible = true
@@ -379,10 +431,45 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                 R.id.sharePost -> {
                     shareAlertDialog(position)
                 }
+                R.id.unfollow -> {
+                    followUser(position, true)
+                }
+                R.id.block->{
+                   blockUser(position)
+                }
             }
             false
         }
         popup.show()
+    }
+
+    private fun blockUser(pos:Int) {
+        val request = HashMap<String, Any>()
+        val service = HashMap<String, Any>()
+        val data = HashMap<String, Any>()
+        val auth = HashMap<String, Any>()
+        data[getString(R.string.param_pie_id)] = pieAdapter.getItem(pos).user_id
+        auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
+        auth[getString(R.string.param_token)] = pref.getToken()
+        request[getString(R.string.data)] = data
+        service[getString(R.string.service)] = getString(R.string.service_pies_user_block)
+        service[getString(R.string.request)] = request
+        service[getString(R.string.auth)] = auth
+        callApi(requestInterface.blockUser(service), true)
+            ?.subscribe({
+                onBlockUser(it,pos)
+            }) {
+                onResponseFailure(it, true)
+            }
+            ?.let { mCompositeDisposable.add(it) }
+    }
+
+    private fun onBlockUser(resp:BaseResponse<Any>,pos:Int){
+        if(onStatusFalse(resp,true))return
+        val list = pieAdapter.getAll().filter { it.user_id == pieAdapter.getItem(pos).user_id }
+        pieAdapter.getAll().removeAll(list)
+        pieAdapter.notifyDataSetChanged()
+
     }
 
     private fun shareAlertDialog(position: Int) {
@@ -562,7 +649,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     private fun onLikeResponse(resp: BaseResponse<GetPieView>) {
         if (super.onStatusFalse(resp, true)) return
-        startAnimation(likeDialog.shimmerViewContainerLike)
+        stopAnimation(likeDialog.shimmerViewContainerLike)
         resp.data?.let {
             it.like_list?.let {
                 if (it.size > 0) {
@@ -718,6 +805,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
     }
 
     private fun setPieListWithPagination(list: ArrayList<PostModel>) {
+        AppLogger.e("tag", ";called.." + list.size)
         pagination.setItemLoaded()
         if (list.size != 0) {
             pagination.setItemLoaded()
@@ -731,15 +819,11 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             } else {
                 pieAdapter.appendAll(list)
             }
-        } else {
-
         }
     }
 
     private fun deletePie(position: Int) {
         if (AppGlobal.isNetworkConnected(activity!!)) run {
-
-
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()
             val data = HashMap<String, Any>()
@@ -756,7 +840,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             callApi(requestInterface.getPies(service), true)
                 ?.subscribe({ onDeletePie(it, position) }) { onResponseFailure(it, true) }
                 ?.let { mCompositeDisposable.add(it) }
-
         } else {
             Toast.makeText(
                 activity!!,

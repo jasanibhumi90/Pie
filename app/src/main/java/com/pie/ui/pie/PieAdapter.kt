@@ -86,7 +86,6 @@ class PieAdapter(
                         LoadImage(data.pies_media_url!![1], ivImage2)
                         // Glide.with(mContext).load(data.pies_media_url!![1]).into(ivImage2)
 
-
                         ivImage3.visibility = View.VISIBLE
                         LoadImage(data.pies_media_url!![2], ivImage3)
                         //Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
@@ -107,15 +106,11 @@ class PieAdapter(
                         ivImage3.visibility = View.VISIBLE
                         LoadImage(data.pies_media_url!![2], ivImage3)
                         //  Glide.with(mContext).load(data.pies_media_url!![2]).into(ivImage3)
-
-
                         ivImage4.visibility = View.VISIBLE
                         LoadImage(data.pies_media_url!![3], ivImage4)
                         //Glide.with(mContext).load(data.pies_media_url!![3]).into(ivImage4)
 
                     }
-
-
                 } else {
 
                 }
@@ -126,18 +121,13 @@ class PieAdapter(
                         rlView.visibility = View.VISIBLE
                         Glide.with(mContext).load(it[0]).into(video_view.coverView)
                         video_view.setVideoPath(it[0]).setFingerprint(position)
-
-
                     }
                 }
-
             } else {
                 rlView.visibility = View.GONE
                 llOne.visibility = View.GONE
                 llTwo.visibility = View.GONE
             }
-
-
             tvLikes.text = data.likes
             tvComments.text = data.comments
             tvViews.text = data.view_count
@@ -156,7 +146,7 @@ class PieAdapter(
 
             cvPost.setOnClickListener(clickListener)
             cvPost.tag = position
-            if (data.like_flag == "0")
+           /* if (data.like_flag == "0")
                 tvLikes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.p_heart, 0, 0, 0)
             else
                 tvLikes.setCompoundDrawablesWithIntrinsicBounds(
@@ -164,7 +154,7 @@ class PieAdapter(
                     0,
                     0,
                     0
-                )
+                )*/
             tvLikes.setOnClickListener(clickListener)
             tvLikes.tag = position
             tvLikes.setTag(R.id.TYPE, type)
@@ -179,15 +169,10 @@ class PieAdapter(
 
             ivProfile.setOnClickListener(clickListener)
             ivProfile.tag=position
-
-
             tvComments.setOnClickListener(clickListener)
             tvComments.tag = position
 
             ivPlay.setOnClickListener {
-                ivPlay.visibility=View.GONE
-                ivPlay.visibility=View.GONE
-                ivPlay.visibility=View.GONE
                 ivPlay.visibility=View.GONE
                 video_view.player.start()
             }

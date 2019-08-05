@@ -27,17 +27,19 @@ class PiematesAdapter(
             tvFollow.text=mContext.resources.getString(R.string.piemate)
           tvFollow.setTextColor(mContext.resources.getColor(R.color.colorWhite))
             tvFollow.background=mContext.resources.getDrawable(R.drawable.bg_btn_blue)
-            /*if(item.followstatus=="0"){
+            if(item.followstatus=="0"){
+                tvFollow.text=resources.getString(R.string.follow)
                 tvFollow.visibility=View.VISIBLE
-                tvFollow.setOnClickListener(clickListener)
-                tvFollow.tag = position
             }else if(item.followstatus=="1"){
+                tvFollow.text=resources.getString(R.string.following)
                 tvFollow.visibility=View.VISIBLE
-                tvFollow.text=mContext.getString(R.string.piemate)
-
-                tvFollow.setOnClickListener(clickListener)
-                tvFollow.tag = position
-            }*/
+            }else{
+                tvFollow.text=resources.getString(R.string.piemate)
+                tvFollow.background=mContext.resources.getDrawable(R.drawable.bg_btn_blue)
+                tvFollow.visibility=View.VISIBLE
+            }
+            tvFollow.setOnClickListener(clickListener)
+            tvFollow.tag = position
 
         }
     }
