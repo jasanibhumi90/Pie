@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tvThingsName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_7sdp"
+            android:paddingEnd="@dimen/_20sdp"
+            android:paddingLeft="@dimen/_20sdp"
+            android:background="@drawable/bg_editext"
+            android:paddingTop="@dimen/_7sdp"
+            android:text=""
+    android:layout_marginTop="@dimen/_7sdp"
+    android:layout_marginBottom="@dimen/_7sdp"
+    android:layout_marginStart="@dimen/_5sdp"
+    android:layout_marginRight="@dimen/_5sdp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
+            android:theme="@style/styleTextMedium" />

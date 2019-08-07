@@ -21,8 +21,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/styleTextSemiBold"
-            android:textSize="@dimen/_16sdp"
+            style="@style/styleTextMedium"
+            android:textSize="@dimen/_13sdp"
             android:id="@+id/tvTitle"
             android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintTop_toTopOf="@id/ivBack"

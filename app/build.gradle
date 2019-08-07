@@ -77,5 +77,6 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-common:0.10.4'
     implementation 'org.jetbrains.anko:anko-sqlite:0.10.4'
     api 'com.github.tcking:giraffeplayer2:0.1.25-lazyLoad'
+    implementation 'com.hbb20:ccp:2.3.1'
 
 }

@@ -22,9 +22,10 @@ import com.kbeanie.multipicker.api.entity.ChosenFile
 import com.kbeanie.multipicker.api.entity.ChosenImage
 import com.pie.R
 import com.pie.model.BaseResponse
-import com.pie.model.LoginModel
+import com.pie.model.Profile
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.main.MainActivity
+import com.pie.ui.register_update_things.RegisterUpdateThingsActivity
 import com.pie.utils.AppConstant
 import com.pie.utils.AppGlobal
 import com.pie.utils.AppLogger
@@ -227,7 +228,7 @@ class RegisterProfileActivity : BaseActivity(), View.OnClickListener, ImagePicke
                 val dd = calendar.get(Calendar.DAY_OF_MONTH)
                 val mdiDialog = DatePickerDialog(this, object : DatePickerDialog.OnDateSetListener {
                     override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-                        vBirthDate =year.toString() + "-" + String.format("%02d", monthOfYear) + "-" + String.format("%02d", dayOfMonth)
+                        vBirthDate =year.toString() + "-" + String.format("%02d", monthOfYear+1) + "-" + String.format("%02d", dayOfMonth)
                         etBirthdate.text=vBirthDate
                        /* Toast.makeText(
                             getApplicationContext(),
@@ -323,14 +324,14 @@ class RegisterProfileActivity : BaseActivity(), View.OnClickListener, ImagePicke
     }
 
     private fun onRegister(
-        resp: BaseResponse<LoginModel>
+        resp: BaseResponse<Profile>
     ) {
         if (super.onStatusFalse(resp, true)) return
         resp.data?.let {
             pref.setLogin(true)
             pref.setLoginData(resp.data)
             pref.setToken(resp.token)
-            startActivity(intentFor<MainActivity>().clearTask().newTask())
+            startActivity(intentFor<RegisterUpdateThingsActivity>().clearTask().newTask())
         }
     }
 

@@ -2,7 +2,7 @@ package com.pie.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.pie.model.LoginModel
+import com.pie.model.Profile
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*
@@ -229,12 +229,12 @@ class AppPreferencesHelper(context: Context, prefFileName: String) {
         prefs!!.edit().putString(KEY_CART, info).apply()
     }*/
 
-    fun getLoginData(): LoginModel? {
+    fun getLoginData(): Profile? {
 
-        var loginInfo: LoginModel? = null
+        var loginInfo: Profile? = null
         try {
             loginInfo =
-                Gson().fromJson<Any>(prefs!!.getString(KEY_LOGIN_DATA, ""), LoginModel::class.java) as LoginModel
+                Gson().fromJson<Any>(prefs!!.getString(KEY_LOGIN_DATA, ""), Profile::class.java) as Profile
         } catch (e: Exception) {
 // loginInfo = LoginData()
         }
@@ -242,7 +242,7 @@ class AppPreferencesHelper(context: Context, prefFileName: String) {
         return loginInfo
     }
 
-    fun setLoginData(result: LoginModel) {
+    fun setLoginData(result: Profile) {
         val info = Gson().toJson(result)
         prefs!!.edit().putString(KEY_LOGIN_DATA, info).apply()
     }
