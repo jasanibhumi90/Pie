@@ -15,9 +15,13 @@ import com.pie.R
 import com.pie.model.*
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.editprofile.EditProfileActivity
+import com.pie.ui.event.EventFragment
+import com.pie.ui.meal.MealsFragment
 import com.pie.ui.pie.PieFragment
 import com.pie.ui.profile.piemate.MyPiematesActivity
-import com.pie.utils.AppConstant.Companion.ARG_DETAIL_DELETE
+import com.pie.utils.AppConstant
+import com.pie.utils.AppConstant.Companion.ARG_FOLLOW_STATUS
+
 import com.pie.utils.AppConstant.Companion.ARG_PIEMATE
 import com.pie.utils.AppConstant.Companion.ARG_PIE_DATA
 import com.pie.utils.AppConstant.Companion.ARG_PIE_MATE_LIST
@@ -35,7 +39,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
 
     private var pieList = ArrayList<PostModel>()
     private var profileId: String = "0"
-    private val NUM_PAGES = 1
+    private val NUM_PAGES = 3
+    private var piemateList=ArrayList<Piemate>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -63,9 +68,15 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             RxBus.listen(Bundle::class.java).observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io()).subscribe { bundle ->
                 if (bundle.containsKey(ARG_PIEMATE)) {
-                    val piemate = bundle.getString(ARG_PIEMATE)
-                    tvPiemates.text=piemate
-
+                    try {
+                        val piemate = bundle.getString(ARG_PIEMATE)
+                        val pos = bundle.getInt(AppConstant.ARG_POSITION)
+                        val data = piemateList[pos]
+                        data.followstatus = bundle.getString(ARG_FOLLOW_STATUS)!!
+                        tvPiemates.text = piemate
+                    }catch (e:Exception){
+                        AppLogger.d("tag","$e")
+                    }
                 }
             })
     }
@@ -114,7 +125,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                     setPagerAdapter()
                 }
             }
-            llPiemate.tag = it.piemate
+            piemateList= it.piemate!!
             if (profileId != pref.getLoginData()!!.user_id)
                 tvEditProfile.text = followStatus(it.followstatus)
         }
@@ -177,9 +188,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                 else startActivityForResult<EditProfileActivity>(REQUEST_EDIT_PROFILE)
             }
             R.id.llPiemate -> {
-                val list = p0.tag as ArrayList<Piemate>
-                AppLogger.e("tag", "data.." + gson.toJson(list).toString())
-                startActivity<MyPiematesActivity>(ARG_PIE_MATE_LIST to list)
+                AppLogger.e("tag", "data.." + gson.toJson(piemateList).toString())
+                startActivity<MyPiematesActivity>(ARG_PIE_MATE_LIST to piemateList)
             }
         }
     }
@@ -199,18 +209,10 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
     ) :
         FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
-            val fragment: Fragment
-            when (position) {
-                0 -> fragment =newInstance()
-                else -> fragment = newInstance()
-            }
-            return fragment
-
-
-            /* return when (position) {
-                1 -> PieFragment()
-                2 -> PieFragment()
-                else -> PieFragment()}*/
+             return when (position) {
+                 0-> newInstance()
+                1 -> MealsFragment()
+                else -> EventFragment()}
 
         }
 
@@ -223,13 +225,11 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return mContext.getString(R.string.pies)
-            /*  when (position) {
+              when (position) {
                   0 -> return mContext.getString(R.string.pies)
-               *//*   1 -> return mContext.getString(R.string.meal)
-                2 -> return mContext.getString(R.string.events)
-                else -> return null*//*
-            }*/
+                  1 -> return mContext.getString(R.string.meal)
+                else -> return mContext.getString(R.string.events)
+            }
         }
     }
 

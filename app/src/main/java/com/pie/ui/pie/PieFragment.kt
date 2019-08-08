@@ -110,15 +110,16 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
         init()
         arguments?.let {
-            AppLogger.e("tag","data....")
+            pagination.setLoadMore(false)
             arguments?.getSerializable(ARG_PIE_DATA)
-            setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
+            val list=arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>
+            pieAdapter.addAll(list)
+
+          //  setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>,false)
         } ?: run {
             getPies(true)
         }
-
     }
-
 
     fun init() {
         mCompositeDisposable.add(RxBus.listen(Bundle::class.java).observeOn(AndroidSchedulers.mainThread())
@@ -144,11 +145,12 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     override fun onLoadMore() {
         pageNo += 1
-        arguments?.let {
-            setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
+        getPies(false)
+       /* arguments?.let {
+            // setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
         } ?: kotlin.run {
-            getPies(false)
-        }
+
+        }*/
     }
 
     private fun isValid(): Boolean {
@@ -338,10 +340,10 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             pieAdapter.getAll().removeAll(list)
             pieAdapter.notifyDataSetChanged()
         } else {
-            if (::likeAdapter.isInitialized){
-            val data = likeAdapter.getItem(pos)
-            data.followstatus = resp.followstatus
-            likeAdapter.updateItem(pos, data)
+            if (::likeAdapter.isInitialized) {
+                val data = likeAdapter.getItem(pos)
+                data.followstatus = resp.followstatus
+                likeAdapter.updateItem(pos, data)
             }
         }
     }
@@ -403,8 +405,8 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             popup.menu.findItem(R.id.sharePost).isVisible = false
             popup.menu.findItem(R.id.menu1).title = resources.getString(R.string.menu_editpost)
             popup.menu.findItem(R.id.menu2).title = resources.getString(R.string.menu_deletepost)
-            popup.menu.findItem(R.id.block).isVisible=false
-            popup.menu.findItem(R.id.unfollow).isVisible=false
+            popup.menu.findItem(R.id.block).isVisible = false
+            popup.menu.findItem(R.id.unfollow).isVisible = false
 
         } else {
             popup.menu.findItem(R.id.menu1).isVisible = false
@@ -434,8 +436,8 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                 R.id.unfollow -> {
                     followUser(position, true)
                 }
-                R.id.block->{
-                   blockUser(position)
+                R.id.block -> {
+                    blockUser(position)
                 }
             }
             false
@@ -443,7 +445,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         popup.show()
     }
 
-    private fun blockUser(pos:Int) {
+    private fun blockUser(pos: Int) {
         val request = HashMap<String, Any>()
         val service = HashMap<String, Any>()
         val data = HashMap<String, Any>()
@@ -457,15 +459,15 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         service[getString(R.string.auth)] = auth
         callApi(requestInterface.blockUser(service), true)
             ?.subscribe({
-                onBlockUser(it,pos)
+                onBlockUser(it, pos)
             }) {
                 onResponseFailure(it, true)
             }
             ?.let { mCompositeDisposable.add(it) }
     }
 
-    private fun onBlockUser(resp:BaseResponse<Any>,pos:Int){
-        if(onStatusFalse(resp,true))return
+    private fun onBlockUser(resp: BaseResponse<Any>, pos: Int) {
+        if (onStatusFalse(resp, true)) return
         val list = pieAdapter.getAll().filter { it.user_id == pieAdapter.getItem(pos).user_id }
         pieAdapter.getAll().removeAll(list)
         pieAdapter.notifyDataSetChanged()
@@ -618,12 +620,12 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             commentsdialog.rvComments.visibility = View.VISIBLE
             commentsdialog.llNodataFound.visibility = View.GONE
             commentsAdapter.appendAll(pieAdapter.getItem(position).comment_list!!)
+            commentsAdapter.collapseAllParents()
         } else {
+            commentsdialog.shimmerViewContainer.visibility=View.GONE
             commentsdialog.rvComments.visibility = View.GONE
             commentsdialog.llNodataFound.visibility = View.VISIBLE
         }
-        commentsAdapter.collapseAllParents()
-
     }
 
     private fun getLikes(pie_id: String) {
@@ -800,24 +802,28 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         Log.e("tag", "resp" + gson.toJson(resp))
         if (super.onStatusFalse(resp, doShowLoader)) return
         resp.data?.let {
-            setPieListWithPagination(resp.data)
+            setPieListWithPagination(resp.data,true)
         }
     }
 
-    private fun setPieListWithPagination(list: ArrayList<PostModel>) {
-        AppLogger.e("tag", ";called.." + list.size)
-        pagination.setItemLoaded()
-        if (list.size != 0) {
+    private fun setPieListWithPagination(list: ArrayList<PostModel>,isPagination:Boolean) {
+        if(!isPagination) {
+            pagination.setLoadMore(false)
+            pieAdapter.addAll(list)
+        }else {
             pagination.setItemLoaded()
-            if (list.size < 10) {
-                pagination.setLoadMore(false)
-            }
-            if (pageNo == 0) {
-                pieAdapter.addAll(list)
-                if (list.size > 0)
-                    Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
-            } else {
-                pieAdapter.appendAll(list)
+            if (list.size != 0) {
+                pagination.setItemLoaded()
+                if (list.size < 10) {
+                    pagination.setLoadMore(false)
+                }
+                if (pageNo == 0) {
+                    pieAdapter.addAll(list)
+                    if (list.size > 10)
+                        Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
+                } else {
+                    pieAdapter.appendAll(list)
+                }
             }
         }
     }

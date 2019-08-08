@@ -13,8 +13,10 @@ import com.pie.R
 import com.pie.model.FollowResponse
 import com.pie.model.Piemate
 import com.pie.ui.base.BaseActivity
+import com.pie.utils.AppConstant.Companion.ARG_FOLLOW_STATUS
 import com.pie.utils.AppConstant.Companion.ARG_PIEMATE
 import com.pie.utils.AppConstant.Companion.ARG_PIE_MATE_LIST
+import com.pie.utils.AppConstant.Companion.ARG_POSITION
 import kotlinx.android.synthetic.main.activity_my_piemates.*
 import kotlinx.android.synthetic.main.toolbar_common.*
 
@@ -75,9 +77,16 @@ class MyPiematesActivity : BaseActivity(),View.OnClickListener {
         val data = pieMatesAdapter.getItem(pos)
         data.followstatus=resp.followstatus
         pieMatesAdapter.updateItem(pos,data)
-        val bundle = Bundle()
-        bundle.putString(ARG_PIEMATE,pieMatesAdapter.getAll().map { it.followstatus=="2" }.size.toString())
-        RxBus.publish(Bundle(bundle))
+        if(pieMatesAdapter.getItem(pos).user_id==pref.getLoginData()?.user_id) {
+            val bundle = Bundle()
+            bundle.putString(ARG_FOLLOW_STATUS, resp.followstatus)
+            bundle.putInt(ARG_POSITION, pos)
+            bundle.putString(
+                ARG_PIEMATE,
+                pieMatesAdapter.getAll().map { it.followstatus == "2" }.size.toString()
+            )
+            RxBus.publish(Bundle(bundle))
+        }
     }
 
     override fun onClick(p0: View?) {
