@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.pie.R
 import com.pie.model.BaseResponse
-import com.pie.model.LoginModel
+import com.pie.model.Profile
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.login.LoginActivity
 import com.pie.ui.main.MainActivity

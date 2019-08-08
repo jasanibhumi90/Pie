@@ -22,7 +22,7 @@ interface RequestInterface {
 
 
     @POST("WebService/service")
-    fun login(@Body map: HashMap<String, Any>): Observable<BaseResponse<LoginModel>>
+    fun login(@Body map: HashMap<String, Any>): Observable<BaseResponse<Profile>>
     //endregion
 
     @POST("WebService/service")
@@ -31,7 +31,7 @@ interface RequestInterface {
 
 
     @POST("WebService/service")
-    fun register(@Body map: HashMap<String, Any>): Observable<BaseResponse<LoginModel>>
+    fun register(@Body map: HashMap<String, Any>): Observable<BaseResponse<Profile>>
 
 
     @Multipart
@@ -50,6 +50,8 @@ interface RequestInterface {
 
     @POST("WebService/service")
     fun getReportss(@Body map: HashMap<String, Any>): Observable<BaseResponse<ArrayList<ReportModel>>>
+    @POST("WebService/service")
+    fun getThings(@Body map: HashMap<String, Any>): Observable<BaseResponse<ArrayList<ThingsModel>>>
 
     @POST("WebService/service")
     fun postReport(@Body map: HashMap<String, Any>): Observable<BaseResponse<Any>>
@@ -77,6 +79,8 @@ interface RequestInterface {
 
     @POST("WebService/service")
     fun getProfile(@Body map: HashMap<String, Any> ): Observable<BaseResponse<Profile>>
+  @POST("WebService/service")
+    fun updateThings(@Body map: HashMap<String, Any> ): Observable<BaseResponse<Any>>
 
     @POST("WebService/service")
     fun followPie(@Body map: HashMap<String, Any>):Observable<FollowResponse>
@@ -98,14 +102,14 @@ interface RequestInterface {
     //region editProfile
     @Multipart
     @POST("user_registration")
-    fun register(@PartMap map1: HashMap<String, RequestBody>, @Part profilePicFile: MultipartBody.Part): Observable<BaseResponse<LoginModel>>
+    fun register(@PartMap map1: HashMap<String, RequestBody>, @Part profilePicFile: MultipartBody.Part): Observable<BaseResponse<Profile>>
     //endregion
 
 
     //region editProfile
     @Multipart
     @POST("user/update-profile")
-    fun updateProfile(@PartMap map1: HashMap<String, RequestBody>, @Part profilePicFile: MultipartBody.Part): Observable<BaseResponse<LoginModel>>
+    fun updateProfile(@PartMap map1: HashMap<String, RequestBody>, @Part profilePicFile: MultipartBody.Part): Observable<BaseResponse<Profile>>
     //endregion*/
 
     companion object {

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import com.pie.R
 import com.pie.model.BaseResponse
-import com.pie.model.LoginModel
+import com.pie.model.Profile
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.main.MainActivity
 import com.pie.ui.register_profile.RegisterProfileActivity
@@ -90,7 +90,7 @@ class VerificationActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun onRegister(
-        resp: BaseResponse<LoginModel>
+        resp: BaseResponse<Profile>
     ) {
         if (super.onStatusFalse(resp, true)) return
         startActivity<RegisterProfileActivity>(ARG_DATA to data)

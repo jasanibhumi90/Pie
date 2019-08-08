@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_150sdp">
 
         <LinearLayout
@@ -92,7 +92,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textColor="@color/edbg"
                         style="@style/styleTextRegular"
                         android:text="@string/first_name" />
@@ -106,7 +106,7 @@
                         android:padding="@dimen/_10sdp"
                         android:textColor="@color/colorBlack"
                         style="@style/styleTextMedium"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_11sdp"
                         android:background="@drawable/bg_btn_white_five" />
 
                 </LinearLayout>
@@ -121,7 +121,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textColor="@color/edbg"
                         style="@style/styleTextRegular"
                         android:text="@string/last_name" />
@@ -134,7 +134,7 @@
                         android:padding="@dimen/_10sdp"
                         style="@style/styleTextMedium"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_11sdp"
                         android:id="@+id/etLastName"
                         android:background="@drawable/bg_btn_white_five" />
 
@@ -145,7 +145,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 android:textColor="@color/edbg"
                 style="@style/styleTextRegular"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_11sdp"
                 android:id="@+id/etBio"
                 style="@style/styleTextMedium"
                 android:background="@drawable/bg_btn_white_five" />
@@ -166,7 +166,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 android:textColor="@color/edbg"
                 style="@style/styleTextRegular"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -180,7 +180,7 @@
                 android:padding="@dimen/_10sdp"
                 android:background="@drawable/bg_btn_disabled"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_11sdp"
                 android:id="@+id/etEmailAddress"
                 style="@style/styleTextMedium"
                 android:enabled="false" />
@@ -188,7 +188,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_10sdp"
                 android:textColor="@color/edbg"
                 style="@style/styleTextRegular"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -201,11 +201,58 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_11sdp"
                 android:id="@+id/etMobileNo"
                 style="@style/styleTextMedium"
                 android:enabled="false"
                 android:background="@drawable/bg_btn_disabled" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/edbg"
+                style="@style/styleTextRegular"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/dob" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                android:id="@+id/tvDob"
+
+                style="@style/styleTextMedium"
+                android:background="@drawable/bg_btn_white_five" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/edbg"
+                style="@style/styleTextRegular"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/area_of_interest" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_11sdp"
+                android:id="@+id/tvInterest"
+                android:text="@string/select_or_change_your_interest"
+                style="@style/styleTextMedium"
+                android:background="@drawable/bg_btn_white_five" />
+
+
+
             <!-- <TextView android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:textSize="@dimen/_12sdp"

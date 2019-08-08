@@ -5,12 +5,13 @@ import android.view.View
 import android.widget.Toast
 import com.pie.R
 import com.pie.model.BaseResponse
-import com.pie.model.LoginModel
+import com.pie.model.Profile
 import com.pie.ui.base.BaseActivity
 import com.pie.ui.verification.VerificationActivity
 import com.pie.utils.AppConstant.Companion.ARG_DATA
 import com.pie.utils.AppConstant.Companion.ARG_PIN_CODE
 import com.pie.utils.AppGlobal
+import com.pie.utils.AppLogger
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -36,8 +37,7 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvRegister -> {
-                if (isValid()) {
-                    registerApi()
+                if (isValid()) { registerApi()
                 }
             }
             R.id.ivBack -> {
@@ -88,8 +88,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             data[getString(R.string.param_last_name)] = vLastName
             data[getString(R.string.param_email)] = vEmailId
             data[getString(R.string.param_password)] = vPassword
-            data[getString(R.string.param_country_name)] = "India"
-            data[getString(R.string.param_country_code)] = "91"
+            data[getString(R.string.param_country_name)] = countryCodePicker.selectedCountryName
+            data[getString(R.string.param_country_code)] = countryCodePicker.selectedCountryCode
             data[getString(R.string.param_phone_no)] = vPhoneNo
             request[getString(R.string.data)] = data
             service[getString(R.string.service)] = getString(R.string.service_signup)
@@ -104,7 +104,7 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun onRegister(
-        resp: BaseResponse<LoginModel>,
+        resp: BaseResponse<Profile>,
         data: HashMap<String, String>
     ) {
         if (super.onStatusFalse(resp, true)) return

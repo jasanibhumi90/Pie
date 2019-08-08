@@ -19,29 +19,6 @@ data class FollowResponse(
 
 
 
-data class LoginModel(
-    var user_id: String,
-    var first_name: String,
-    var last_name: String,
-    var user_name: String,
-    var profile_pic: String,
-    var gender: String,
-    var things_ids: String,
-    var profile_status: String,
-    var country_code: String,
-    var country_name: String,
-    var phone_no: String,
-    var wallet: String,
-    var email_id: String,
-    var password: String,
-    var mobile_code: String,
-    var is_verify: String,
-    var device_type: String,
-    var device_id: String,
-    var is_blocked: String,
-    var birth_date: String
-) : Serializable
-
 
 data class PostModel(
     var id: String = "",
@@ -74,6 +51,11 @@ data class PostModel(
 data class ReportModel(
     var id: String = "",
     var report_name: String = ""
+) : Serializable
+data class ThingsModel(
+    var id: String = "",
+    var things_name: String = "",
+    var isSelected: Boolean = false
 ) : Serializable
 
 data class CommentModel(

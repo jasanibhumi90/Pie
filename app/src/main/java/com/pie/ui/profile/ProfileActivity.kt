@@ -112,6 +112,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
     private fun onPeofileResponse(resp: BaseResponse<Profile>) {
         if (super.onStatusFalse(resp, true)) return
         resp.data?.let {
+            pref.setLoginData(it)
             tvName.text = it.first_name + " " + it.last_name
             tvUsername.text = it.user_name
             if (it.profile_pic.isNotEmpty())
