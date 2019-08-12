@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.app.utils.RxBus
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.pie.R
 import com.pie.model.*
@@ -36,7 +37,6 @@ import org.jetbrains.anko.startActivityForResult
 
 
 class ProfileActivity : BaseActivity(), View.OnClickListener {
-
     private var pieList = ArrayList<PostModel>()
     private var profileId: String = "0"
     private val NUM_PAGES = 3
@@ -52,7 +52,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun followStatus(status: String): String {
+    private fun followStatus(status: String): String {
         var followStatus = ""
         followStatus = if (status == "0") {
             getString(R.string.follow)
@@ -85,8 +85,26 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         val adapter = SimpleFragmentPagerAdapter(this, supportFragmentManager)
         pager.adapter = adapter
         tablayout.setupWithViewPager(pager)
+        appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+            var isVisible = true
+            var scrollRange = -1
+            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.totalScrollRange
+
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    llName.visibility = View.VISIBLE
+                    isVisible = true
+                } else if (isVisible) {
+                    llName.visibility = View.INVISIBLE
+                    isVisible = false
+                }
+            }
+        })
+
         //tablayout.tabGravity = TabLayout.GRAVITY_FILL
-        llprofile.visibility = View.VISIBLE
+        //llprofile.visibility = View.VISIBLE
     }
 
     private fun getPieProfile() {
@@ -112,8 +130,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
     private fun onPeofileResponse(resp: BaseResponse<Profile>) {
         if (super.onStatusFalse(resp, true)) return
         resp.data?.let {
-            pref.setLoginData(it)
-            tvName.text = it.first_name + " " + it.last_name
+            tvName.text = getString(R.string.full_name, it.first_name, it.last_name)
+            tvNameToolbar.text = getString(R.string.full_name, it.first_name, it.last_name)
             tvUsername.text = it.user_name
             if (it.profile_pic.isNotEmpty())
                 setImage(ivProfile, it.profile_pic)
@@ -129,6 +147,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             piemateList= it.piemate!!
             if (profileId != pref.getLoginData()!!.user_id)
                 tvEditProfile.text = followStatus(it.followstatus)
+            else pref.setLoginData(it)
         }
     }
 
@@ -171,6 +190,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                 Glide.with(this).load(it.profile_pic).into(ivProfile)
             }
             tvName.text = getString(R.string.full_name, it.first_name, it.last_name)
+            tvNameToolbar.text=getString(R.string.full_name, it.first_name, it.last_name)
             tvUsername.text = (it.user_name)
 
             if (it.profile_status.isNotEmpty())

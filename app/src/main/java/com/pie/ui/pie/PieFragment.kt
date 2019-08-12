@@ -79,6 +79,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
     private lateinit var likeDialog: Dialog
     private lateinit var likeAdapter: LikeAdapter
     private lateinit var productImageSliderAdapter: ProductImageSliderAdapter
+    private var profileUserId = "0"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -110,12 +111,13 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
         init()
         arguments?.let {
-            pagination.setLoadMore(false)
-            arguments?.getSerializable(ARG_PIE_DATA)
-            val list=arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>
-            pieAdapter.addAll(list)
-
-          //  setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>,false)
+            /* val list=arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>
+             pieAdapter.addAll(list)*/
+            ivCreatePie.visibility=View.GONE
+            setPieListWithPagination(
+                arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>,
+                true
+            )
         } ?: run {
             getPies(true)
         }
@@ -145,12 +147,54 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
 
     override fun onLoadMore() {
         pageNo += 1
-        getPies(false)
-       /* arguments?.let {
-            // setPieListWithPagination(arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>)
-        } ?: kotlin.run {
+        arguments?.let {
+            getProfilePie()
+        } ?: run {
+            getPies(false)
+        }
+    }
 
-        }*/
+    private fun getProfilePie() {
+        if (AppGlobal.isNetworkConnected(activity!!)) run {
+            val request = HashMap<String, Any>()
+            val service = HashMap<String, Any>()
+            val data = HashMap<String, Any>()
+            val auth = HashMap<String, Any>()
+            data[getString(R.string.param_offset)] = pageNo.toString()
+            data[getString(R.string.param_profile_id)] = profileUserId
+            auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id!!
+            auth[getString(R.string.param_token)] = pref.getToken()
+            request[getString(R.string.data)] = data
+            service[getString(R.string.service)] = getString(R.string.service_get_profile_pies)
+            service[getString(R.string.request)] = request
+            service[getString(R.string.auth)] = auth
+            callApi(requestInterface.getPiesByProfile(service), false)
+                ?.subscribe({ onProfilePies(it, false) }) { onResponseFailure(it, false) }
+                ?.let { mCompositeDisposable.add(it) }
+
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.msg_no_internet),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+    }
+
+    private fun onProfilePies(resp: BaseResponse<GetProfilePies>, doShowLoader: Boolean) {
+        if (onStatusFalse(resp, true)) return
+        Log.e("tag", "resp" + gson.toJson(resp))
+        if (super.onStatusFalse(resp, doShowLoader)) return
+        resp.data?.let {
+            it.pie_list?.let {
+                if(it.size>0) {
+                    setPieListWithPagination(it, true)
+                }else{
+                    pagination.setLoadMore(false)
+                }
+            }
+        }
     }
 
     private fun isValid(): Boolean {
@@ -179,7 +223,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                     AppConstant.EXTRA_IMAGE_DATA to pieAdapter.getItem(pos).pies_media_url,
                     AppConstant.ARG_POS to 1
                 )
-
             }
             R.id.ivImage3 -> {
                 val pos = p0.tag as Int
@@ -187,7 +230,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                     AppConstant.EXTRA_IMAGE_DATA to pieAdapter.getItem(pos).pies_media_url,
                     AppConstant.ARG_POS to 2
                 )
-
             }
             R.id.ivImage4 -> {
                 val pos = p0.tag as Int
@@ -195,18 +237,14 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                     AppConstant.EXTRA_IMAGE_DATA to pieAdapter.getItem(pos).pies_media_url,
                     AppConstant.ARG_POS to 3
                 )
-
             }
-
             R.id.ivCreatePie -> {
                 val intent = Intent(activity!!, CreatePieActivity::class.java)
                 startActivityForResult(intent, REQUEST_CODE_CREATE_PIE)
             }
-
             R.id.ivMenu -> {
                 val pos = p0.tag as Int
                 openMenu(pos, p0, pieAdapter.getItem(pos).user_id)
-
             }
             R.id.tvLikes -> {
                 likeDialog(pieAdapter.getItem(p0.tag as Int).id)
@@ -227,7 +265,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                     AppGlobal.alertDialog(activity, getString(R.string.loginfirst_error))
                 }
             }
-
             R.id.tvComments -> {
                 val pos = p0.tag as Int
                 getPieComments(pos)
@@ -300,7 +337,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                         pos
                     ).user_id
                 )
-
             }
             R.id.tvFollow -> {
                 val pos = p0.tag as Int
@@ -351,14 +387,14 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
     private fun likeDialog(id: String) {
         try {
             likeDialog = Dialog(activity)
-            likeDialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
-            likeDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            likeDialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-            likeDialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+            likeDialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+            likeDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            likeDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+            likeDialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
             likeDialog.setContentView(R.layout.dialog_like)
 
             likeDialog.setCanceledOnTouchOutside(false)
-            likeDialog.window.attributes.windowAnimations = R.style.DialogStyle
+            likeDialog.window?.attributes?.windowAnimations = R.style.DialogStyle
             startAnimation(likeDialog.shimmerViewContainerLike)
             likeDialog.ivDilogCloseLike.setOnClickListener(this)
             getLikes(id)
@@ -548,18 +584,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             commentsdialog.tvSend.tag = position
             commentsdialog.rvComments.visibility = View.VISIBLE
 
-            /* edReplyComment.addTextChangedListener(object : TextWatcher {
-                 override fun afterTextChanged(p0: Editable?) {
-                 }
-
-                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                 }
-
-                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                 }
-             })*/
-
             val lp = WindowManager.LayoutParams()
             val window = commentsdialog.window
             lp.copyFrom(window!!.attributes)
@@ -622,7 +646,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             commentsAdapter.appendAll(pieAdapter.getItem(position).comment_list!!)
             commentsAdapter.collapseAllParents()
         } else {
-            commentsdialog.shimmerViewContainer.visibility=View.GONE
             commentsdialog.rvComments.visibility = View.GONE
             commentsdialog.llNodataFound.visibility = View.VISIBLE
         }
@@ -774,10 +797,8 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             val data = HashMap<String, Any>()
             val auth = HashMap<String, Any>()
             data[getString(R.string.param_offset)] = pageNo.toString()
-
             auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
             auth[getString(R.string.param_token)] = pref.getToken()
-
             request[getString(R.string.data)] = data
             service[getString(R.string.service)] = getString(R.string.service_get_pies)
             service[getString(R.string.request)] = request
@@ -802,15 +823,16 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         Log.e("tag", "resp" + gson.toJson(resp))
         if (super.onStatusFalse(resp, doShowLoader)) return
         resp.data?.let {
-            setPieListWithPagination(resp.data,true)
+            setPieListWithPagination(resp.data, true)
         }
     }
 
-    private fun setPieListWithPagination(list: ArrayList<PostModel>,isPagination:Boolean) {
-        if(!isPagination) {
+    private fun setPieListWithPagination(list: ArrayList<PostModel>, isPagination: Boolean) {
+        profileUserId = list[0].user_id
+        if (!isPagination) {
             pagination.setLoadMore(false)
             pieAdapter.addAll(list)
-        }else {
+        } else {
             pagination.setItemLoaded()
             if (list.size != 0) {
                 pagination.setItemLoaded()
@@ -993,7 +1015,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                         )
                     )
                 }
-
             }
         }
     }

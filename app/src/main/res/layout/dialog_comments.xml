@@ -45,7 +45,8 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:contentDescription="@string/content_desc"
                 android:padding="@dimen/_8sdp"
-                android:src="@drawable/close_post"
+                android:src="@drawable/arrow_right"
+                android:rotation="90"
                 android:tint="@color/colorArrow" />
         </FrameLayout>
 
@@ -108,9 +109,9 @@
             android:id="@+id/llNodataFound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone"
             tools:ignore="UseCompoundDrawables">
@@ -122,14 +123,14 @@
                 android:src="@drawable/empty_nocomment" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:text="@string/nocomments"
-            android:textColor="@color/colorNoComments"
-            android:textSize="@dimen/_14sdp"
-            android:theme="@style/styleTextSemiBold" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:text="@string/nocomments"
+                android:textColor="@color/colorNoComments"
+                android:textSize="@dimen/_14sdp"
+                android:theme="@style/styleTextSemiBold" />
 
             <TextView
                 android:layout_width="wrap_content"

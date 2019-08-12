@@ -254,8 +254,6 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
 
     private fun uploadPic(path: String) {
         if (AppGlobal.isNetworkConnected(this)) run {
-
-
             callApi(requestInterface.uploadPic(getFileToUpload("user_image", path)), true)
                 ?.subscribe({ onFileUpload(it) }) { onResponseFailure(it, true) }
                 ?.let { mCompositeDisposable.add(it) }
@@ -332,8 +330,6 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
             data[getString(R.string.param_Things_ids)] = vThingsIds
             auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
             auth[getString(R.string.param_token)] = pref.getToken()
-
-
             request[getString(R.string.data)] = data
             service[getString(R.string.service)] = getString(R.string.service_update_profile)
             service[getString(R.string.request)] = request
@@ -352,15 +348,13 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
         resp: BaseResponse<Profile>
     ) {
         resp.data?.let {
-            val bundle = Bundle()
+          /*  val bundle = Bundle()
             bundle.putString(AppConstant.ARG_DETAIL_DELETE, "")
-            RxBus.publish(Bundle(bundle))
+            RxBus.publish(Bundle(bundle))*/
             sneakerSuccess(this, resp.message)
-            pref.setLoginData(resp.data)
+            pref.setLoginData(it)
             setResult(Activity.RESULT_OK)
             finish()
-
-
         }
     }
 

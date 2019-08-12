@@ -27,6 +27,7 @@
     <string name="service_pies_follow">pies_follow</string>
     <string name="service_update_things">update_things</string>
     <string name="service_pies_user_block">pies_user_block</string>
+    <string name="service_get_profile_pies">get_profile_pies</string>
 
     \
 
@@ -81,5 +82,6 @@
     <string name="param_comment">comment</string>
     <string name="param_profile_id">profile_id</string>
     <string name="param_follow_id">follow_id</string>
+
 
 </resources>

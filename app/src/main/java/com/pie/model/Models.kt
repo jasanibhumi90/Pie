@@ -17,8 +17,12 @@ data class FollowResponse(
     var followstatus:String
 )
 
-
-
+data class GetProfilePies(
+    var profile_id:String="",
+    var offset:String="",
+    var user_id:String="",
+    var pie_list:ArrayList<PostModel>?=ArrayList()
+):Serializable
 
 data class PostModel(
     var id: String = "",
