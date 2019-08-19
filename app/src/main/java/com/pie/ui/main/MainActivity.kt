@@ -23,6 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 import org.jetbrains.anko.startActivity
+import tcking.github.com.giraffeplayer2.PlayerManager
 
 
 class MainActivity : BaseActivity(), View.OnClickListener {
@@ -72,6 +73,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
+        if (PlayerManager.getInstance().onBackPressed()) {
+            return
+        }
         val fragment = supportFragmentManager.findFragmentById(R.id.container)
         if(fragment is HomeFragment){
             finishAffinity()
@@ -79,4 +83,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             super.onBackPressed()
         }
     }
+
+
 }

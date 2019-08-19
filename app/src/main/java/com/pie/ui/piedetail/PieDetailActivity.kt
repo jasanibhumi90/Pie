@@ -3,6 +3,7 @@ package com.pie.ui.piedetail
 import android.app.Dialog
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -48,11 +49,14 @@ import kotlinx.android.synthetic.main.dialog_alert.*
 import kotlinx.android.synthetic.main.dialog_like.*
 import kotlinx.android.synthetic.main.dialog_reportpost.*
 import kotlinx.android.synthetic.main.flow_report.view.*
+import kotlinx.android.synthetic.main.listitem_home.view.*
 import kotlinx.android.synthetic.main.raw_comment_reply_list.*
 import kotlinx.android.synthetic.main.toolbar_common.*
 import org.apmem.tools.layouts.FlowLayout
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import tcking.github.com.giraffeplayer2.GiraffePlayer
+import tcking.github.com.giraffeplayer2.PlayerManager
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -197,12 +201,19 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
                     }
                 }
             }else if (it.pies_type == "video") {
+
                 rlView.visibility = View.GONE
                 it.pies_media_url?.let {
                     if (it.size != 0) {
                         rlView.visibility = View.VISIBLE
                         Glide.with(this).load(it[0]).into(video_view.coverView)
                         video_view.setVideoPath(it[0]).setFingerprint(position)
+                        if (video_view != null) {
+                            video_view.player.displayModel = GiraffePlayer.DISPLAY_NORMAL
+                        } else {
+                            video_view.player.displayModel = GiraffePlayer.DISPLAY_FLOAT
+                            video_view.videoInfo.isPortraitWhenFullScreen = false
+                        }
                     }
                 }
             } else {
@@ -791,6 +802,19 @@ class PieDetailActivity : BaseActivity(), View.OnClickListener,
 
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        PlayerManager.getInstance().onConfigurationChanged(newConfig)
+    }
+
+
+    override fun onBackPressed() {
+        if (PlayerManager.getInstance().onBackPressed()) {
+            return
+        }
+        super.onBackPressed()
     }
 
 }

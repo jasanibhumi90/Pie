@@ -1,1 +1,1 @@
-include ':app', ':video_trimmer_library'
+include ':app', ':video_trimmer_library',':giraffeplayer2'

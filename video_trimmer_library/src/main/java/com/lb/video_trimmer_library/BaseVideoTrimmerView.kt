@@ -201,7 +201,7 @@ abstract class BaseVideoTrimmerView @JvmOverloads constructor(
         )
     }
 
-    private fun onClickVideoPlayPause() {
+    public fun onClickVideoPlayPause() {
         if (videoView.isPlaying) {
             messageHandler.removeMessages(SHOW_PROGRESS)
             pauseVideo()

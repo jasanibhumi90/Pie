@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -52,6 +53,7 @@ import kotlinx.android.synthetic.main.like_row_layout.view.*
 import kotlinx.android.synthetic.main.listitem_home.view.*
 import org.apmem.tools.layouts.FlowLayout
 import org.jetbrains.anko.startActivity
+import tcking.github.com.giraffeplayer2.PlayerManager
 import java.util.HashMap
 import kotlin.collections.ArrayList
 import kotlin.collections.set
@@ -582,7 +584,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             commentsdialog.tvSend.setOnClickListener(this)
             commentsdialog.ivDilogClose.setOnClickListener(this)
             commentsdialog.tvSend.tag = position
-            commentsdialog.rvComments.visibility = View.VISIBLE
 
             val lp = WindowManager.LayoutParams()
             val window = commentsdialog.window
@@ -623,10 +624,13 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         resp.data?.let {
 
         }
-
-
     }
 
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        PlayerManager.getInstance().onConfigurationChanged(newConfig)
+    }
     private fun setCommentAdapter(context: Context?, comments: List<CommentModel>) {
         context?.let {
             commentsdialog.rvComments.layoutManager = LinearLayoutManager(context)
@@ -1137,6 +1141,8 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         }
         return data!!
     }
+
+
 
 
 }

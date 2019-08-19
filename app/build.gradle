@@ -67,6 +67,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:4.36.1'
 //    implementation 'com.hbb20:ccp:2.2.2'
     implementation project(path: ':video_trimmer_library')
+    implementation project(path: ':giraffeplayer2')
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     // Facebook
@@ -80,7 +81,7 @@ dependencies {
     //anko
     implementation 'org.jetbrains.anko:anko-common:0.10.4'
     implementation 'org.jetbrains.anko:anko-sqlite:0.10.4'
-    api 'com.github.tcking:giraffeplayer2:0.1.25-lazyLoad'
+  /*  api 'com.github.tcking:giraffeplayer2:0.1.25-lazyLoad'*/
     implementation 'com.hbb20:ccp:2.3.1'
 
 }
