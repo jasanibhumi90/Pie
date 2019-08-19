@@ -89,6 +89,8 @@ class UpdateThingsActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+
+
     override fun onBackPressed() {
         val data=Intent()
         val arSelectedData = arThings.filter { it.isSelected }
