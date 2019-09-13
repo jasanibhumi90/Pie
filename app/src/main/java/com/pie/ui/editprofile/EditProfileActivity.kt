@@ -68,6 +68,7 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
             uploadPath = it.profile_pic
             vBirthDate = it.birth_date
             vThingsIds = it.things_ids
+            vBio=it.profile_status
             etFirstName.setText(vFirstName)
             etLastName.setText(vLastName)
             etEmailAddress.setText(vEmail)
@@ -347,6 +348,7 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener, ImagePickerCal
     private fun onRegister(
         resp: BaseResponse<Profile>
     ) {
+        if(onStatusFalse(resp,true)) return
         resp.data?.let {
           /*  val bundle = Bundle()
             bundle.putString(AppConstant.ARG_DETAIL_DELETE, "")

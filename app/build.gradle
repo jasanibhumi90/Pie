@@ -83,5 +83,6 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-sqlite:0.10.4'
   /*  api 'com.github.tcking:giraffeplayer2:0.1.25-lazyLoad'*/
     implementation 'com.hbb20:ccp:2.3.1'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
 
 }

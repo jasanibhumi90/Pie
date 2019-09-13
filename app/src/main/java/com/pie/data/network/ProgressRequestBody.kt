@@ -88,8 +88,6 @@ class ProgressRequestBody : RequestBody {
             `in`.close()
         }
     }
-
-
     companion object {
         private val DEFAULT_BUFFER_SIZE = 2048
     }

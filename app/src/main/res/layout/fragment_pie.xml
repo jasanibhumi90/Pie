@@ -33,4 +33,34 @@
         android:visibility="gone"
         app:indicatorColor="@color/colorPrimary"
         app:indicatorName="BallRotateIndicator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/llNoDataFound"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/empty_home"
+            android:id="@+id/ivEmptyPie"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_home"
+            style="@style/styleTextSemiBold"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_home_sub"
+            style="@style/styleTextRegular"
+            android:textSize="@dimen/_12sdp"
+           />
+    </LinearLayout>
 </RelativeLayout>

@@ -31,27 +31,26 @@ class RegisterUpdateThingsActivity : BaseActivity(), View.OnClickListener {
 
         ivBack.setOnClickListener(this)
         tvDone.setOnClickListener(this)
-
         getThings()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-
             R.id.ivBack -> {
                 finish()
             }
-
             R.id.tvDone -> {
-                updateThings()
+                if (isValid())
+                    updateThings()
             }
-
-
         }
     }
 
     private fun isValid(): Boolean {
-
+        if (arThings.filter { it.isSelected }.size < 5) {
+            sneakerError(this, getString(R.string.things_error))
+            return false
+        }
         return true
     }
 
@@ -64,10 +63,8 @@ class RegisterUpdateThingsActivity : BaseActivity(), View.OnClickListener {
         val arSelectedData = arThings.filter { it.isSelected }
         data[getString(R.string.param_Things_ids)] =
             TextUtils.join(",", arSelectedData.map { it.id })
-
         auth[getString(R.string.param_id)] = pref.getLoginData()?.user_id.toString()
         auth[getString(R.string.param_token)] = pref.getToken()
-
         request[getString(R.string.data)] = data
         service[getString(R.string.service)] = getString(R.string.service_update_things)
         service[getString(R.string.request)] = request
@@ -89,29 +86,24 @@ class RegisterUpdateThingsActivity : BaseActivity(), View.OnClickListener {
             val service = HashMap<String, Any>()
             service[getString(R.string.service)] = getString(R.string.service_get_things)
             service[getString(R.string.request)] = request
-
             callApi(requestInterface.getThings(service), true)
                 ?.subscribe({ onGetReports(it) }) { onResponseFailure(it, true) }
                 ?.let { mCompositeDisposable.add(it) }
-
         } else {
             Toast.makeText(this, resources.getString(R.string.msg_no_internet), Toast.LENGTH_LONG)
                 .show()
         }
     }
 
-    private fun onGetReports(
-        resp: BaseResponse<ArrayList<ThingsModel>>
-    ) {
+    private fun onGetReports(resp: BaseResponse<ArrayList<ThingsModel>>) {
         if (super.onStatusFalse(resp, true)) return
-
         if (resp.data?.size != 0) {
             resp.data?.let { arThings.addAll(it) }
             addView(flowLayout)
         }
     }
 
-    fun addView(flowLayout: FlowLayout) {
+    private fun addView(flowLayout: FlowLayout) {
         if (flowLayout.childCount != 0) {
             flowLayout.removeAllViews()
         }

@@ -60,7 +60,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private fun loginAPI() {
         if (AppGlobal.isNetworkConnected(this)) run {
-
             val data = HashMap<String, String>()
             val request = HashMap<String, Any>()
             val service = HashMap<String, Any>()

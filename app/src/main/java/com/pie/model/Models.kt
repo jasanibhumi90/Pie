@@ -1,6 +1,7 @@
 package com.pie.model
 
 import com.bignerdranch.expandablerecyclerview.model.Parent
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class BaseResponse<T>(
@@ -218,4 +219,24 @@ data class Suggestion(
     val user_name: String? = "",
     val profile_pic: String? = ""
 ) : Serializable
+
+data class PushNotificationModel(var message: String = "",
+                                 var sender_id: String = "",
+                                 var receiver_id: String = "",
+                                 var type: String = "",
+                                 var description: String = "",
+                                 var post_id: String?,
+                                 var comment_id: String?,
+                                 var title: String = "",
+                                 var coin: String = "0",
+                                 var reason: String = "",
+                                 var report_id: String?,
+                                 var amount: String? = "",
+                                 var reply: String?,
+                                 var wallet: String = "0",
+                                 var mobile: String = "",
+                                 var phonecode: String = "",
+                                 var redirection_link: String = "",
+                                 var app_version: String = "",
+                                 var contest_id: String = "") : Serializable
 

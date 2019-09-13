@@ -28,12 +28,6 @@
     <string name="service_update_things">update_things</string>
     <string name="service_pies_user_block">pies_user_block</string>
     <string name="service_get_profile_pies">get_profile_pies</string>
-
-    \
-
-
-
-
     <string name="param_signup">signup</string>
     <string name="param_social_type">social_type</string>
     <string name="param_fb_social_id">fb_social_id</string>

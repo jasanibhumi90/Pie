@@ -115,7 +115,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         arguments?.let {
             /* val list=arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>
              pieAdapter.addAll(list)*/
-            ivCreatePie.visibility=View.GONE
+            ivCreatePie.visibility = View.GONE
             setPieListWithPagination(
                 arguments?.getSerializable(ARG_PIE_DATA) as ArrayList<PostModel>,
                 true
@@ -190,9 +190,9 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         if (super.onStatusFalse(resp, doShowLoader)) return
         resp.data?.let {
             it.pie_list?.let {
-                if(it.size>0) {
+                if (it.size > 0) {
                     setPieListWithPagination(it, true)
-                }else{
+                } else {
                     pagination.setLoadMore(false)
                 }
             }
@@ -256,10 +256,12 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                     val pos = p0.tag as Int
                     val data = getDataByType(p0.getTag(R.id.TYPE).toString(), pos).clone()
                     val newItem = getDataByType(p0.getTag(R.id.TYPE).toString(), pos)
-                    if (newItem.like_flag == "0")
+                    if (newItem.like_flag == "0") {
                         newItem.like_flag = "1"
-                    else
-                        newItem.like_flag = "0"
+                       // newItem.likes=(newItem.likes.toInt()+1).toString()
+                    } else{
+                    //    newItem.likes=(newItem.likes.toInt()-1).toString()
+                        newItem.like_flag = "0"}
 
                     postLike(pieAdapter.getItem(pos).id, pos, data)
                     updateItemByType(newItem, p0.getTag(R.id.TYPE).toString(), pos)
@@ -556,7 +558,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         if (super.onStatusFalse(resp, true)) return
         resp?.data?.let {
             AppLogger.e("tag", gson.toJson(it))
-            sneakerError(activity!!, getString(R.string.pie_shared_succ))
+            sneakerSuccess(activity!!, getString(R.string.pie_shared_succ))
             pieAdapter.addAtFirst(it)
             rvPosts.scrollToPosition(0)
         }
@@ -592,8 +594,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
             lp.height = WindowManager.LayoutParams.MATCH_PARENT
             window.attributes = lp
             commentsdialog.show()
-
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -631,6 +631,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         super.onConfigurationChanged(newConfig)
         PlayerManager.getInstance().onConfigurationChanged(newConfig)
     }
+
     private fun setCommentAdapter(context: Context?, comments: List<CommentModel>) {
         context?.let {
             commentsdialog.rvComments.layoutManager = LinearLayoutManager(context)
@@ -776,6 +777,7 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
                         val postModel = it.getSerializableExtra(ARG_DATA) as PostModel?
                         postModel?.let {
                             pieAdapter.addAtFirst(it)
+                            rvPosts.scrollToPosition(0)
                         }
                     }
                 }
@@ -826,31 +828,45 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
     ) {
         Log.e("tag", "resp" + gson.toJson(resp))
         if (super.onStatusFalse(resp, doShowLoader)) return
-        resp.data?.let {
-            setPieListWithPagination(resp.data, true)
+        if(resp.data!=null) {
+            resp.data?.let {
+                if (it.size > 0) {
+                    llNoDataFound.visibility = View.GONE
+                    setPieListWithPagination(it, true)
+                }
+                else {
+                    llNoDataFound.visibility = View.VISIBLE
+                }
+            }
+        }else{
+            llNoDataFound.visibility = View.VISIBLE
         }
     }
 
     private fun setPieListWithPagination(list: ArrayList<PostModel>, isPagination: Boolean) {
-        profileUserId = list[0].user_id
-        if (!isPagination) {
-            pagination.setLoadMore(false)
-            pieAdapter.addAll(list)
-        } else {
-            pagination.setItemLoaded()
-            if (list.size != 0) {
+        if (list.size > 0) {
+            profileUserId = list[0].user_id
+            if (!isPagination) {
+                pagination.setLoadMore(false)
+                pieAdapter.addAll(list)
+            } else {
                 pagination.setItemLoaded()
-                if (list.size < 10) {
-                    pagination.setLoadMore(false)
-                }
-                if (pageNo == 0) {
-                    pieAdapter.addAll(list)
-                    if (list.size > 10)
-                        Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
-                } else {
-                    pieAdapter.appendAll(list)
+                if (list.size != 0) {
+                    pagination.setItemLoaded()
+                    if (list.size < 10) {
+                        pagination.setLoadMore(false)
+                    }
+                    if (pageNo == 0) {
+                        pieAdapter.addAll(list)
+                        if (list.size > 10)
+                            Handler().postDelayed({ pagination.setLoadMore(true) }, 500)
+                    } else {
+                        pieAdapter.appendAll(list)
+                    }
                 }
             }
+        } else {
+            llNoDataFound.visibility = View.VISIBLE
         }
     }
 
@@ -1141,8 +1157,6 @@ class PieFragment : BaseFragment(), View.OnClickListener, CommentsAdapter2.OnIte
         }
         return data!!
     }
-
-
 
 
 }

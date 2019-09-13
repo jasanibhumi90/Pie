@@ -139,7 +139,6 @@
     <string name="your_email_address">Your email address</string>
     <string name="send">SEND</string>
 
-
     <!--register-->
     <string name="create_an_account">Create an account</string>
     <string name="connect_share">Connect, Share &amp; host events and meals</string>
@@ -270,6 +269,10 @@
     <string name="edit">Edit</string>
     <string name="delete_pie">Delete</string>
     <string name="block">Block</string>
+    <string name="empty_home">Whoops</string>
+    <string name="empty_home_sub">Seems like you seat alone.</string>
+
+    <string name="things_error">Please select minimum 5 choice of interest.</string>
 
 
 </resources>
